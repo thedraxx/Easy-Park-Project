@@ -1,14 +1,15 @@
 import 'package:easy_park/colors/color.dart';
+import 'package:easy_park/helpers/location.dart';
 
 import 'package:easy_park/pages/inicio.dart';
 import 'package:easy_park/pages/map.dart';
 import 'package:easy_park/pages/page3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
 import 'class/userlocation.dart';
+import 'dart:async';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -19,17 +20,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late var ProviderLocation;
-  Location location = Location();
-  bool _serviceEnabled = false;
-  PermissionStatus _permissionGranted = PermissionStatus.granted;
-  LocationData _locationData = LocationData.fromMap({});
+
+  bool isOffline = false;
 
   @override
   void initState() {
-    setState(() {
-      initializeLocationAndSave();
-      print("Inicio HOME");
-    });
+    initializeLocationAndSave(_NewLocation);
     super.initState();
   }
 
@@ -75,35 +71,9 @@ class _HomeState extends State<Home> {
     });
   }
 
-  Future<void> initializeLocationAndSave() async {
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return;
-      }
-    }
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
-    _locationData = await location.getLocation();
-    double lat = double.parse('${_locationData.latitude}');
-    double long = double.parse('${_locationData.longitude}');
-    ProviderLocation.latitud = lat;
-    ProviderLocation.longitud = long;
-    // ProviderLocation.state = true;
-
-    print("FUNCION : LATITUD ${lat} LONGITUD ${long}");
+//OBTIENE POSICION ACTUAL Y RE DIBUJA WIDGET
+  Future<void> _NewLocation(currentPosition) async {
+    ProviderLocation.position = await currentPosition;
     setState(() {});
   }
-
-  /*void update() {
-    location.onLocationChanged.listen((LocationData currentLocation) {
-      geo();
-    });
-  }*/
 }

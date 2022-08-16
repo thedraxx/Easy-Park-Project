@@ -1,9 +1,10 @@
 import 'package:easy_park/class/userlocation.dart';
 import 'package:easy_park/colors/color.dart';
+import 'package:easy_park/helpers/location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 
-import 'package:latlong2/latlong.dart' as latLng;
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
 class PageMap extends StatefulWidget {
@@ -16,17 +17,17 @@ class PageMap extends StatefulWidget {
 class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
   double controllerZoom = 14;
   late final MapController mapController;
-  late latLng.LatLng userLocation;
+  late var ProviderLocation;
+  late LatLng userLocation;
 
   @override
   void initState() {
     super.initState();
-
     mapController = MapController();
   }
 
-  void _animatedMapMove(
-      latLng.LatLng destLocation, double destZoom, bool zoomBoton) {
+//ANIMACION DE CENTARDO DE MAPA EN UN POSICION DETERMINADA
+  void _animatedMapMove(LatLng destLocation, double destZoom, bool zoomBoton) {
     double zoom;
     if (zoomBoton == false) {
       zoom = mapController.zoom;
@@ -45,8 +46,7 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
 
     controller.addListener(() {
       mapController.move(
-        latLng.LatLng(
-            latTween.evaluate(animation), lngTween.evaluate(animation)),
+        LatLng(latTween.evaluate(animation), lngTween.evaluate(animation)),
         zoomTween.evaluate(animation),
       );
     });
@@ -64,14 +64,14 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    var ubicacion = Provider.of<UserLocation>(context);
-    userLocation = latLng.LatLng(ubicacion.lat, ubicacion.long);
+    ProviderLocation = Provider.of<UserLocation>(context);
+    userLocation = ProviderLocation.UserPosition;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: azul,
         title: Text(
-          "(Lat: ${ubicacion.lat} - Long: ${ubicacion.long}) ",
+          "(Lat: ${userLocation.latitude} - Long: ${userLocation.longitude}) ",
           style: const TextStyle(fontSize: 13.0),
         ),
       ),
@@ -104,9 +104,9 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
                 builder: (ctx) => GestureDetector(
                   onLongPress: () {},
                   child: const Icon(
-                    Icons.adjust_outlined,
+                    Icons.radio_button_on_sharp,
                     color: Colors.deepPurpleAccent,
-                    size: 18.0,
+                    size: 20.0,
                   ),
                 ),
               ),
@@ -139,18 +139,41 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
           ),
         ],
       )),
-      floatingActionButton: FloatingActionButton(
-        onPressed: center,
-        tooltip: 'center',
-        backgroundColor: azul,
-        child: const Icon(Icons.center_focus_strong),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              initializeLocationAndSave(_NewLocation);
+            },
+            tooltip: 'Posicion actual',
+            backgroundColor: gris,
+            child: Icon(Icons.person_pin_circle_rounded, color: azul),
+          ),
+          const SizedBox(
+            height: 5.0,
+          ),
+          FloatingActionButton(
+            onPressed: _center,
+            tooltip: 'center',
+            backgroundColor: azul,
+            child: const Icon(Icons.center_focus_strong),
+          ),
+        ],
       ),
     );
   }
 
-  void center() {
+//CENTRA MAP
+  void _center() {
     _animatedMapMove(userLocation, 16.0, true);
-    // setState(() {});
+  }
+
+//OBTIENE POSICION ACTUAL Y RE DIBUJA WIDGET
+  Future<void> _NewLocation(currentPosition) async {
+    ProviderLocation.position = await currentPosition;
+    print("LA POSITION ES $currentPosition");
+    _animatedMapMove(currentPosition, 16.0, false);
   }
 
   /* proveedores() {
@@ -170,19 +193,3 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
     );
   }*/
 }
-
-
-
-
-
-
-
-//'https://api.mapbox.com/styles/v1/davidfi/cl4mxpt41001c14qlkbnmsgkw/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGF2aWRmaSIsImEiOiJja2R3ZWt2bzAxcXpqMnRueTBqb2hndHc4In0.AJ933P-vw0YG6U0N4woASA'
-
-
-//tokenMap:
-//pk.eyJ1IjoiZGF2aWRmaSIsImEiOiJjbDZoMnNtaXcwM2lnM2Nud3g4MzF3N3MzIn0.BWsm2F1iYUTOk649LnswGg
-
-// <style name="mapbox_access_token"></style>
-
-//flutter run -d {device_id} --dart-define=ACCESS_TOKEN=pk.eyJ1IjoiZGF2aWRmaSIsImEiOiJjbDZoMnNtaXcwM2lnM2Nud3g4MzF3N3MzIn0.BWsm2F1iYUTOk649LnswGg`

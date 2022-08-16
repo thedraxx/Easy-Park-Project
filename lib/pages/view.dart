@@ -1,8 +1,9 @@
 import 'package:easy_park/colors/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart' as latLng;
+import 'package:latlong2/latlong.dart';
 
+//DESCRIPCION DE PROVEEDOR SELECCIONADO
 class Seccion extends StatefulWidget {
   const Seccion(
       {super.key,
@@ -11,7 +12,8 @@ class Seccion extends StatefulWidget {
       required this.id,
       required this.latitud,
       required this.longitud,
-      required this.cantidad});
+      required this.cantidad,
+      required this.imagen});
 
   final String nombre;
   final String direccion;
@@ -19,6 +21,7 @@ class Seccion extends StatefulWidget {
   final double latitud;
   final double longitud;
   final int cantidad;
+  final String imagen;
 
   @override
   State<Seccion> createState() => _Page2State();
@@ -28,29 +31,18 @@ class _Page2State extends State<Seccion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: azul,
-        elevation: 0,
-      ),
-      body: ListView(
-        children: [
-          Stack(
-            children: [
-              Container(
-                height: 150,
-                decoration: BoxDecoration(
-                  color: azul,
-                ),
-                child: ListTile(
-                  title: Text(widget.nombre,
-                      style: TextStyle(fontSize: 24, color: claro)),
-                  subtitle: Text(widget.direccion,
-                      style: TextStyle(fontSize: 20, color: claro)),
-                ),
-              ),
-            ],
-          ),
-          Container(
+      body: CustomScrollView(slivers: <Widget>[
+        SliverAppBar(
+          expandedHeight: 250.0,
+          flexibleSpace: FlexibleSpaceBar(
+              title: Text("${widget.nombre}"),
+              background: Image.network(
+                widget.imagen,
+                fit: BoxFit.cover,
+              )),
+        ),
+        SliverToBoxAdapter(
+          child: Container(
             margin: const EdgeInsets.all(10.0),
             height: 300,
             width: 300,
@@ -61,8 +53,8 @@ class _Page2State extends State<Seccion> {
               options: MapOptions(
                 minZoom: 5,
                 maxZoom: 18,
-                center: latLng.LatLng(
-                    widget.latitud, widget.longitud), // userLocation,
+                center:
+                    LatLng(widget.latitud, widget.longitud), // userLocation,
                 zoom: 16,
               ),
               layers: [
@@ -79,7 +71,7 @@ class _Page2State extends State<Seccion> {
                     Marker(
                       width: 80.0,
                       height: 80.0,
-                      point: latLng.LatLng(widget.latitud, widget.longitud),
+                      point: LatLng(widget.latitud, widget.longitud),
                       builder: (ctx) => GestureDetector(
                         onLongPress: () {},
                         child: const Icon(
@@ -99,9 +91,9 @@ class _Page2State extends State<Seccion> {
                 ),
               ],
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ]),
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.check),
         backgroundColor: azul,

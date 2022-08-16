@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 
 //CLASS DE LOCALIZACION PROVIDER
 class UserLocation with ChangeNotifier {
-  double _latitude = -32.9636381489;
-  double _longitude = -60.6324221025;
+  LatLng _Position = LatLng(-32.9636381489, -60.6324221025);
 
-  get lat => _latitude;
+//OBTENER POSICION Y NOTIFICAR
+  get UserPosition => _Position;
 
-  get long => _longitude;
-
-  set latitud(double latitud) {
-    _latitude = latitud;
-    notifyListeners();
-  }
-
-  set longitud(double longitud) {
-    _longitude = longitud;
-
+//mODIFICAR POSICION Y NOTIFICAR
+  set position(LatLng position) {
+    _Position = position;
     notifyListeners();
   }
 }

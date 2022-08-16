@@ -32,12 +32,14 @@ class _Card_ProvState extends State<Card_Prov> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => Seccion(
-                id: widget.id,
-                nombre: widget.nombre,
-                direccion: widget.direccion,
-                latitud: widget.latitud,
-                longitud: widget.longitud,
-                cantidad: widget.cantidad)));
+                  id: widget.id,
+                  nombre: widget.nombre,
+                  direccion: widget.direccion,
+                  latitud: widget.latitud,
+                  longitud: widget.longitud,
+                  cantidad: widget.cantidad,
+                  imagen: widget.imagen,
+                )));
       },
       child: Container(
         height: 120,
@@ -67,9 +69,9 @@ class _Card_ProvState extends State<Card_Prov> {
                 ),
                 // color: Colors.red,
               ),
-              SizedBox(
-                width: 20,
-              ),
+              /*  SizedBox(
+                width: 10,
+              ),*/
               Container(
                 height: 120,
                 width: 150,
@@ -115,7 +117,7 @@ class _Card_ProvState extends State<Card_Prov> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.all(10.0),
+                margin: const EdgeInsets.only(right: 20.0),
                 child: Text(
                   "2 Kms",
                   style: TextStyle(

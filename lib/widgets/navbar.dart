@@ -53,16 +53,16 @@ class Navbar extends StatelessWidget {
               ),
 
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
-                      margin: const EdgeInsets.all(20.0),
-                      width: 300,
+                      margin: const EdgeInsets.only(left: 10),
+                      width: 280,
                       decoration: BoxDecoration(
                         color: azulclaro,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: TextField(
-                        // controller: myController,
                         cursorColor: claro,
                         decoration: InputDecoration(
                             fillColor: Colors.white,
@@ -71,21 +71,28 @@ class Navbar extends StatelessWidget {
                             contentPadding: const EdgeInsets.only(
                                 left: 15, bottom: 11, top: 14, right: 15),
                             hintText: 'Buscar',
-                            hintStyle: TextStyle(color: claro),
+                            hintStyle: TextStyle(
+                              color: claro,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w100,
+                            ),
                             labelStyle: TextStyle(color: claro),
                             suffixIcon: IconButton(
                                 splashRadius: 20,
                                 onPressed: () {},
                                 icon: const Icon(Icons.clear))),
                       )),
-                  IconButton(
-                      splashRadius: 20,
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.search,
-                        color: claro,
-                        size: 20,
-                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: IconButton(
+                        splashRadius: 20,
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.search,
+                          color: claro,
+                          size: 20,
+                        )),
+                  ),
                 ],
               ),
               //Boton_cat(),

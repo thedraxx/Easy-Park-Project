@@ -1,6 +1,6 @@
 import 'package:easy_park/class/userlocation.dart';
 import 'package:easy_park/colors/color.dart';
-import 'package:easy_park/home.dart';
+import 'package:easy_park/pages/page_login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,20 +18,10 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Map',
+        title: 'Easy Park',
         color: azul,
-        home: const Home(),
+        home: const Login(),
       ),
     );
   }
 }
-
-//flutter clean
-//flutter run --release
-
-/*
-*    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-        <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
-*
-* */
-

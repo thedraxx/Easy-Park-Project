@@ -1,5 +1,6 @@
 import 'package:easy_park/class/Proveedores.dart';
 import 'package:easy_park/classApi/httpProv.dart';
+import 'package:easy_park/colors/color.dart';
 import 'package:easy_park/helpers/asyncSnapshotHelper.dart';
 import 'package:easy_park/widgets/navbar.dart';
 
@@ -16,6 +17,10 @@ class _InicioState extends State<Inicio> {
   final myController = TextEditingController();
 
   late Future<List<Proveedores>> futureProv;
+
+  final someOtherSliver = SliverToBoxAdapter(
+    child: Text("Hola"),
+  );
 
   @override
   void initState() {

@@ -1,13 +1,15 @@
-/*import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
+
+import 'package:latlong2/latlong.dart';
 
 Location location = Location();
 bool _serviceEnabled = false;
 PermissionStatus _permissionGranted = PermissionStatus.granted;
 LocationData _locationData = LocationData.fromMap({});
 
-Future<void> initializeLocationAndSave() async {
+Future<void> initializeLocationAndSave(Function newLocation) async {
   _serviceEnabled = await location.serviceEnabled();
+
   if (!_serviceEnabled) {
     _serviceEnabled = await location.requestService();
     if (!_serviceEnabled) {
@@ -24,22 +26,18 @@ Future<void> initializeLocationAndSave() async {
   _locationData = await location.getLocation();
   double lat = double.parse('${_locationData.latitude}');
   double long = double.parse('${_locationData.longitude}');
+  var currentPosition = LatLng(lat, long);
 
-  // Get capture the current user location
-  //LocationData _locationData = await _location.getLocation();
-  // LatLng currentLatLng =LatLng(_locationData.latitude!, _locationData.longitude!);
+  return newLocation(currentPosition);
+}
+
 
 /*
-  ProviderLocation.latitud = lat;
-  ProviderLocation.longitud = long;
-  ProviderLocation.state = true;*/
 
-  // print("FUNCION : LATITUD ${lat} LONGITUD ${long}");
-  // print(" LOCATION FUNCIONA $currentLatLng");
-}*/
+NOTICICAR CAMBIOS DE POSICION 
+void update() {
+    location.onLocationChanged.listen((LocationData currentLocation) {
+      geo();
+    });
 
-/*void update() {
-  location.onLocationChanged.listen((LocationData currentLocation) {
-    geo();
-  });
-}*/
+*/
