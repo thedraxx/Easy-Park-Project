@@ -66,7 +66,7 @@ class _LoginState extends State<ResetPass> {
                         suffixIcon: IconButton(
                             splashRadius: 20,
                             onPressed: () {},
-                            icon: const Icon(Icons.person))),
+                            icon: const Icon(Icons.email))),
                     onSaved: (newValue) => _email = newValue!,
                   )),
               const SizedBox(height: 20.0),

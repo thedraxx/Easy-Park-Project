@@ -89,7 +89,7 @@ class _RegistroState extends State<Registro> {
                                 suffixIcon: IconButton(
                                     splashRadius: 20,
                                     onPressed: () {},
-                                    icon: const Icon(Icons.person))),
+                                    icon: const Icon(Icons.email))),
                             onSaved: (newValue) => _email = newValue!,
                           ),
                         ),

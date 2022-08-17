@@ -1,7 +1,6 @@
-import 'package:easy_park/class/Proveedores.dart';
 import 'package:easy_park/colors/color.dart';
 import 'package:easy_park/widgets/card_prov.dart';
-import 'package:easy_park/pages/view.dart';
+
 import 'package:flutter/material.dart';
 
 Widget asyncSnapshotHelper(AsyncSnapshot snapshot) {

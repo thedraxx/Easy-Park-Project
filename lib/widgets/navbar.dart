@@ -1,5 +1,5 @@
 import 'package:easy_park/colors/color.dart';
-import 'package:easy_park/widgets/botones_categ.dart';
+//import 'package:easy_park/widgets/botones_categ.dart';
 import 'package:flutter/material.dart';
 
 class Navbar extends StatelessWidget {
@@ -10,7 +10,7 @@ class Navbar extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 200,
+          height: 180,
           color: azul,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -99,10 +99,11 @@ class Navbar extends StatelessWidget {
             ],
           ),
         ),
-        Container(
+        //CONTENEDO DE BOTONES DE CATEGORIA
+        /* Container(
           height: 100,
           child: const Boton_cat(),
-        )
+        )*/
       ],
     );
   }
