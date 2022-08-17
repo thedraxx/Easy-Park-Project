@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/register.css" />
+    <title>Formulario</title>
+  </head>
+  <body>
+    <!-- Navbar o barra de navegacion -->
+    <div class="topnav">
+      <h3 class="logo">Easy Park</h3>
+      <a class="active" href="#">Quienes Somos</a>
+      <a href="#">Contacto</a>
+      <a href="#">Como se usa?</a>
+    </div>
+
+    <!-- Formulario -->
+    <form class="login" id="login">
+      <fieldset class="form">
+        <ul class="container-input">
+          <legend class="bienvenido">Bienvenido</legend>
+          <li class="input-container">
+            <label for="nomber" class="names">Nombre Y Apellido: </label>
+            <input
+              type="text"
+              name="nombreapellido"
+              id="nombre"
+              class="input"
+            />
+          </li>
+          <li class="input-container">
+            <label for="nomber" class="names">Contrasena: </label>
+            <input type="text" name="password" id="password" class="input" />
+          </li>
+          <li class="input-container">
+            <label for="nomber" class="names">Usuario: </label>
+            <input type="text" name="usuario" id="usuario" class="input" />
+          </li>
+          <li class="input-container">
+            <label for="password" class="names">Localidad: </label>
+            <input type="text" name="localidad" id="localidad" class="input" />
+          </li>
+          <li class="input-container">
+            <label for="password" class="names">Email: </label>
+            <input type="text" name="email" id="email" class="input" />
+          </li>
+          <li class="input-container">
+            <label for="password" class="names">Domicilio: </label>
+            <input type="text" name="domicilio" id="domicilio" class="input" />
+          </li>
+          <li class="input-container">
+            <label for="password" class="names">numero de plazas: </label>
+            <input type="number" name="plazas" id="plazas" class="input" />
+          </li>
+          <div id="error"></div>
+
+          <li class="submit">
+            <a href="../index.html" class="button-create">Cancelar</a>
+          </li>
+          <li class="submit">
+            <input
+              type="submit"
+              name="Entregar"
+              value="Entrar"
+              class="button-submit"
+            />
+          </li>
+        </ul>
+      </fieldset>
+    </form>
+    <script async type="text/javascript" src="../js/datosRegistro.js"></script>
+  </body>
+</html>
