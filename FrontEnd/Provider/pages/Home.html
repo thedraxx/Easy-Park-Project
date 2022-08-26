@@ -42,7 +42,7 @@
             />
           </li>
 
-          <li class="input-container">
+          <!-- <li class="input-container">
             <label for="nomber" class="names">Estado: </label>
             <input
               type="text"
@@ -51,7 +51,23 @@
               class="input"
               placeholder="Ingrese la plaza"
             />
+          </li> -->
+
+          <li class="input-container">
+            <label for="nomber" class="names">Estado: </label>
+            <Select
+              type="text"
+              name="estado"
+              id="estado"
+              class="input"
+              placeholder="Ingrese la plaza"
+            >
+          <option value="Ocupado">Ocupado</option>
+          <option value="Reservado">Reservado</option>
+          <option value="Disponible">Disponible</option>
+          </Select>
           </li>
+
           <li class="submit">
             <a href="../index.html" class="button-create">Salir</a>
           </li>
