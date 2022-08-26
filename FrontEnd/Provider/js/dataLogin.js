@@ -1,8 +1,19 @@
 // Hacemos referencia al formulario
 const login = document.getElementById("login");
 // Obtenemos los datos de la persona
-const password = document.getElementById("password").value;
-const usuario = document.getElementById("usuario").value;
+let password = document.getElementById("password");
+let usuario = document.getElementById("usuario");
+
+password.addEventListener('input', updateValuePassword)
+usuario.addEventListener('input', updateValueUsuario)
+
+function updateValuePassword(e) {
+    password = e.target.value
+}
+function updateValueUsuario(e) {
+    usuario = e.target.value
+}
+
 
 class Person {
     constructor(password, usuario) {
@@ -11,34 +22,38 @@ class Person {
     }
 
     verificacionCamposVacios() {
-        if (this.password == "" || this.usuario == "") {
+        if (this.password === "" || this.usuario === "") {
             return false;
+        } else {
+            return true;
         }
-        return true;
-    }
 
+    }
 }
 
 login.onsubmit = (e) => {
     e.preventDefault();
 
     // llamamos a la funcion que crea el objeto
-    const persona = new Person(password, usuario);
+    const loginPersona = new Person(password, usuario);
 
     // Verificamos que los datos no esten vacios
-    const verificacion = persona.verificacionCamposVacios();
+    const verificacion = loginPersona.verificacionCamposVacios();
 
     // Si los datos estan vacios, mostramos un mensaje de error
-    if (verificacion == false) {
+    if (!verificacion) {
         document.getElementById("error").innerHTML = "Todos los campos son obligatorios";
         setTimeout(() => {
             document.getElementById("error").innerHTML = "";
-        }, 2000);
+        }, 1000);
+    } else {
+        // Convertimos person a JSON
+        const personJSON = JSON.stringify(loginPersona);
+        console.log(personJSON);
+        window.location.href = "../pages/Home.html";
     }
 
-    // Convertimos person a JSON
-    const personJSON = JSON.stringify(persona);
-    console.log(personJSON);
+
 
 
 }
