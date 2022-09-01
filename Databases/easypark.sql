@@ -1,3 +1,4 @@
+
 -- MySQL dump 10.13  Distrib 8.0.29, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: easypark
@@ -58,7 +59,7 @@ CREATE TABLE `cliente_estac` (
   `hora_ing` datetime DEFAULT NULL,
   `hora_egr` datetime DEFAULT NULL,
   PRIMARY KEY (`cod_operacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +161,7 @@ CREATE TABLE `proveedor` (
   `mail` varchar(40) DEFAULT NULL,
   `fecha_alta` datetime DEFAULT NULL,
   PRIMARY KEY (`cod_proveedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +187,7 @@ CREATE TABLE `reserva` (
   `patente` varchar(8) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   PRIMARY KEY (`cod_reserva`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
