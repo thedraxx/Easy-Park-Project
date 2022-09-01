@@ -54,7 +54,7 @@ login.onsubmit = (e) => {
     } else {
         // Convertimos person a JSON
         const personJSON = JSON.stringify(nuevaplaza);
-        console.log(personJSON);
+        fetch("localhost:3000/transactions");
     }
 }
 
