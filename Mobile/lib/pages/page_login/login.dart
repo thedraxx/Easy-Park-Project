@@ -1,12 +1,14 @@
+import 'package:easy_park/classApi/httpPeticiones.dart';
 import 'package:easy_park/colors/color.dart';
 import 'package:easy_park/helpers/validacion.dart';
+
 import 'package:easy_park/home.dart';
 import 'package:easy_park/pages/page_login/Registro.dart';
 import 'package:easy_park/pages/page_login/reset_pass.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  Login({Key? key}) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
@@ -16,7 +18,10 @@ class _LoginState extends State<Login> {
   final _formkey = GlobalKey<FormState>();
   late String _usuario;
   late String _pass;
+  final UsuarioController = TextEditingController();
+  final PassController = TextEditingController();
   bool _hide = true;
+  bool consulta = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +47,7 @@ class _LoginState extends State<Login> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextFormField(
+                    controller: UsuarioController,
                     validator: (value) => ValidaUsuario(value!),
                     keyboardType: TextInputType.emailAddress,
                     cursorColor: claro,
@@ -51,7 +57,7 @@ class _LoginState extends State<Login> {
                         focusedBorder: InputBorder.none,
                         contentPadding: const EdgeInsets.only(
                             left: 15, bottom: 11, top: 14, right: 15),
-                        hintText: 'Usuario',
+                        hintText: 'Email',
                         hintStyle: TextStyle(
                           color: azulclaro,
                           fontFamily: 'Montserrat',
@@ -72,6 +78,7 @@ class _LoginState extends State<Login> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextFormField(
+                    controller: PassController,
                     validator: (value) => ValidaPass(value),
                     onSaved: (newValue) => _pass = newValue!,
                     obscureText: _hide,
@@ -97,11 +104,10 @@ class _LoginState extends State<Login> {
                                 ? const Icon(Icons.password)
                                 : const Icon(Icons.remove_red_eye_sharp))),
                   )),
-              // const SizedBox(height: 5.0),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ResetPass()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ResetPass()));
                 },
                 child: const Text('Olvide mi contraseña',
                     style: TextStyle(
@@ -129,13 +135,33 @@ class _LoginState extends State<Login> {
                   minWidth: 300.0,
                   height: 50.0,
                   onPressed: () {
-                    // print("$_usuario   y $_pass");
+                    /* Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => const Home()));*/
+
                     final form = _formkey.currentState;
                     if (form!.validate()) {
                       form.save();
-
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const Home()));
+                      PeticionesHttp()
+                          .ConsultaLogin(
+                              UsuarioController.text, PassController.text)
+                          .then((result) {
+                        if (result == true) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const Home()));
+                        } else {
+                          UsuarioController.clear();
+                          PassController.clear();
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: naranja,
+                            elevation: 10.0,
+                            content: Text(
+                              'Usuario incorrecta',
+                              style: TextStyle(color: azul),
+                            ),
+                            duration: const Duration(seconds: 1),
+                          ));
+                        }
+                      });
                     }
                   },
                   color: azul,

@@ -1,3 +1,4 @@
+import 'package:easy_park/classApi/httpPeticiones.dart';
 import 'package:easy_park/colors/color.dart';
 import 'package:easy_park/helpers/validacion.dart';
 import 'package:easy_park/pages/page_login/login.dart';
@@ -14,7 +15,13 @@ class _RegistroState extends State<Registro> {
   final _formkeyReg = GlobalKey<FormState>();
   late String _email;
   String _pass = "";
+  late String _nombre;
+  late String _localidad;
+  final nombreController = TextEditingController();
   final myController = TextEditingController();
+  final UsuarioController = TextEditingController();
+  final LocalidadController = TextEditingController();
+  final telController = TextEditingController();
   late String _tel;
   bool _hide = true;
 
@@ -36,17 +43,6 @@ class _RegistroState extends State<Registro> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  Text("Easy Park",
-                      style: TextStyle(
-                        color: azul,
-                        fontSize: 18.0,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                      )),
-                  const SizedBox(height: 20.0),
                   Text("Registro",
                       style: TextStyle(
                         color: azul,
@@ -70,6 +66,37 @@ class _RegistroState extends State<Registro> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: TextFormField(
+                            controller: nombreController,
+                            validator: (value) => ValidaNombre(value!),
+                            cursorColor: claro,
+                            decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                contentPadding: const EdgeInsets.only(
+                                    left: 15, bottom: 11, top: 14, right: 15),
+                                hintText: 'Nombre',
+                                hintStyle: TextStyle(
+                                  color: azulclaro,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.w100,
+                                ),
+                                labelStyle: TextStyle(color: azul),
+                                suffixIcon: IconButton(
+                                    splashRadius: 20,
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.person))),
+                            onSaved: (newValue) => _nombre = newValue!,
+                          ),
+                        ),
+                        const SizedBox(height: 20.0),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: claro,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: TextFormField(
+                            controller: UsuarioController,
                             validator: (value) => ValidaUsuario(value!),
                             keyboardType: TextInputType.emailAddress,
                             cursorColor: claro,
@@ -100,6 +127,7 @@ class _RegistroState extends State<Registro> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: TextFormField(
+                            controller: telController,
                             validator: (value) => ValidaTel(value!),
                             keyboardType: TextInputType.phone,
                             cursorColor: claro,
@@ -121,6 +149,37 @@ class _RegistroState extends State<Registro> {
                                     onPressed: () {},
                                     icon: const Icon(Icons.phone))),
                             onSaved: (newValue) => _tel = newValue!,
+                          ),
+                        ),
+                        const SizedBox(height: 20.0),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: claro,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: TextFormField(
+                            controller: LocalidadController,
+                            validator: (value) => ValidaNombre(value!),
+                            keyboardType: TextInputType.emailAddress,
+                            cursorColor: claro,
+                            decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                contentPadding: const EdgeInsets.only(
+                                    left: 15, bottom: 11, top: 14, right: 15),
+                                hintText: 'Localidad',
+                                hintStyle: TextStyle(
+                                  color: azulclaro,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.w100,
+                                ),
+                                labelStyle: TextStyle(color: azul),
+                                suffixIcon: IconButton(
+                                    splashRadius: 20,
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.location_on))),
+                            onSaved: (newValue) => _localidad = newValue!,
                           ),
                         ),
                         const SizedBox(height: 20.0),
@@ -207,9 +266,26 @@ class _RegistroState extends State<Registro> {
                         final form = _formkeyReg.currentState;
                         if (form!.validate()) {
                           form.save();
-
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const Login()));
+                          PeticionesHttp()
+                              .RegistraDb(
+                                  nombreController.text,
+                                  UsuarioController.text,
+                                  LocalidadController.text,
+                                  myController.text,
+                                  telController.text)
+                              .then((result) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: naranja,
+                              elevation: 10.0,
+                              content: Text(
+                                'Usuario Registrado',
+                                style: TextStyle(color: azul),
+                              ),
+                              duration: const Duration(seconds: 1),
+                            ));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Login()));
+                          });
                         }
                       },
                       color: azul,

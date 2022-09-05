@@ -8,7 +8,7 @@ class UserLocation with ChangeNotifier {
 //OBTENER POSICION Y NOTIFICAR
   get UserPosition => _Position;
 
-//mODIFICAR POSICION Y NOTIFICAR
+//MODIFICAR POSICION Y NOTIFICAR
   set position(LatLng position) {
     _Position = position;
     notifyListeners();

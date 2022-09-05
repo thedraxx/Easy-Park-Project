@@ -1,6 +1,5 @@
 import 'package:easy_park/class/Proveedores.dart';
-import 'package:easy_park/classApi/httpProv.dart';
-import 'package:easy_park/colors/color.dart';
+import 'package:easy_park/classApi/httpPeticiones.dart';
 import 'package:easy_park/helpers/asyncSnapshotHelper.dart';
 import 'package:easy_park/widgets/navbar.dart';
 
@@ -21,7 +20,7 @@ class _InicioState extends State<Inicio> {
   @override
   void initState() {
     super.initState();
-    final Apisprovs = Apisprov();
+    final Apisprovs = PeticionesHttp();
     futureProv = Apisprovs.fetchProveedores();
   }
 

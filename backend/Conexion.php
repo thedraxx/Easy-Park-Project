@@ -13,11 +13,9 @@
                 echo "Fallo al conectar a servidor: " . $this->conexion_db->connect_error;
                 return;
             }
-
-            echo "conexion activa";
-            $this-> conexion_db ->set_charset(DB_CHARSET);
-            
-            
+          //  echo "conexion activa";
+           //$this-> conexion_db ->set_charset(DB_CHARSET); 
         }
+
     }
 ?>

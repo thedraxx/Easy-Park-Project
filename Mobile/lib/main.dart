@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Easy Park',
         color: azul,
-        home: const Login(),
+        home: Login(),
       ),
     );
   }

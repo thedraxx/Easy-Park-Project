@@ -1,4 +1,5 @@
 import 'package:easy_park/colors/color.dart';
+import 'package:easy_park/pages/page_login/login.dart';
 //import 'package:easy_park/widgets/botones_categ.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +44,10 @@ class Navbar extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => Login()));
+                        },
                         icon: Icon(
                           Icons.menu,
                           color: claro,

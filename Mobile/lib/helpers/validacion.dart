@@ -1,8 +1,16 @@
+//VALIDA NOMBRE INGRESADO
+ValidaNombre(String data) {
+  if (data.isEmpty || data.length < 3) {
+    return "error";
+  }
+}
+
 //VALIDA USUARIO
 ValidaUsuario(String data) {
   if (data.isEmpty || !data.contains('@') || data.length < 6) {
     return "error";
   }
+
   return null;
 }
 

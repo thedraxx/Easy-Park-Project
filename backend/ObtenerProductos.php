@@ -12,10 +12,10 @@
         
         public function get_productos(){
 
-            $resultado = $this->conexion_db-> query('SELECT * FROM cliente');
+            $resultado = $this->conexion_db-> query('SELECT * FROM prov_estac');
 
             $productos = $resultado->fetch_all(MYSQLI_ASSOC);
-
+         
             return $productos;
 
         }

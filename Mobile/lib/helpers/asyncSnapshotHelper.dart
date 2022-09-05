@@ -17,7 +17,7 @@ Widget asyncSnapshotHelper(AsyncSnapshot snapshot) {
           final data = snapshot.data![index];
           String nombre = data.nombre;
           String direccion = data.direccion;
-          int id = data.id;
+          int id = data.cod_estac;
           double lat = data.latitud;
           double long = data.longitud;
           int cantidad = data.cantidad;
