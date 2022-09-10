@@ -8,12 +8,10 @@ class ValidarLogin extends Conexion{
         parent::__construct();
     }
 
-    public function login($usuario,$pass,$tipoUsuario){
-   
-        if($usuario == '' or $pass == ''){
-            echo 'ERROR';
-        }else{
-            $consulta = mysqli_query($this -> conexion_db, "SELECT * FROM $tipoUsuario WHERE mail = '$usuario' AND password = '$pass'");
+    public function login($mail,$pass,$tipoUsuario){
+
+        try{
+            $consulta = mysqli_query($this -> conexion_db, "SELECT * FROM $tipoUsuario WHERE mail = '$mail' AND password = '$pass'");
             $ver = mysqli_num_rows($consulta);
             if($ver > 0){
                 $datos = mysqli_fetch_assoc($consulta);
@@ -21,9 +19,11 @@ class ValidarLogin extends Conexion{
             }else{
                 echo '0';
             }
-           
-        }
-          
+         }catch(Exception $e){
+             echo $e;
+         }
+         parent::cerrarDB();
     }
 }
+
 ?>

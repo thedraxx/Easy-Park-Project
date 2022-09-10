@@ -13,7 +13,9 @@
             $resultado = $this->conexion_db-> query('SELECT * FROM prov_estac');
             $estacionamientos = $resultado->fetch_all(MYSQLI_ASSOC);
             return $estacionamientos;
+            parent::cerrarDB();
         }
+        
     }
 
 ?>

@@ -54,7 +54,7 @@ class PeticionesHttp {
         'localidad': localidad,
         'pass': pass,
         'tel': tel,
-        'tipo': "p"
+        'tipo': "c"
       }).timeout(const Duration(seconds: 90));
 
       var data = await json.decode(json.encode(response.body));
