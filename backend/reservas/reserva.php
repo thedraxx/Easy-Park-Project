@@ -26,7 +26,7 @@ class Reserva extends Conexion{
  //CONSULTA DATOS DE RESERVA INGRESANDO TOKEN
          public function MostrarReserva($token){
              $consulta = mysqli_query($this -> conexion_db,
-             "SELECT cl.nombre,res.ingreso,res.salida FROM reserva AS res JOIN cliente AS cl USING(cod_cliente) WHERE res.token = '$token'");
+             "SELECT cl.nombre,res.patente,res.ingreso,res.salida FROM reserva AS res JOIN cliente AS cl USING(cod_cliente) WHERE res.token = '$token'");
              $ver = mysqli_num_rows($consulta);
              if($ver > 0){
                 $datos = mysqli_fetch_assoc($consulta);

@@ -19,9 +19,11 @@ Widget asyncSnapshotHelper(AsyncSnapshot snapshot) {
           String direccion = data.direccion;
           int id = data.cod_estac;
           double lat = data.latitud;
+          String horario = data.horario;
           double long = data.longitud;
           int cantidad = data.cantidad;
           String imagen = data.imagen;
+          int precio = data.precio;
           return Card_Prov(
               nombre: nombre,
               direccion: direccion,
@@ -29,7 +31,9 @@ Widget asyncSnapshotHelper(AsyncSnapshot snapshot) {
               id: id,
               latitud: lat,
               longitud: long,
-              imagen: imagen);
+              horario: horario,
+              imagen: imagen,
+              precio: precio);
         });
   }
   return element;

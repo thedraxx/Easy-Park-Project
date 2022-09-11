@@ -6,6 +6,9 @@ import 'package:easy_park/home.dart';
 import 'package:easy_park/pages/page_login/Registro.dart';
 import 'package:easy_park/pages/page_login/reset_pass.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../class/userlocation.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -15,6 +18,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  late var ProviderUser;
   final _formkey = GlobalKey<FormState>();
   late String _usuario;
   late String _pass;
@@ -25,6 +29,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    ProviderUser = Provider.of<UserLocation>(context);
+
     return Scaffold(
       body: Center(
         child: Form(
@@ -142,8 +148,8 @@ class _LoginState extends State<Login> {
                     if (form!.validate()) {
                       form.save();
                       PeticionesHttp()
-                          .ConsultaLogin(
-                              UsuarioController.text, PassController.text)
+                          .ConsultaLogin(UsuarioController.text,
+                              PassController.text, _User)
                           .then((result) {
                         if (result == true) {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -173,6 +179,12 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+//GUARDA ID DE USUARIO EN PROVIDER
+  void _User(id) {
+    ProviderUser.idUsuario = int.parse(id);
+    print(ProviderUser.Userid);
   }
 
   void _update() => setState(() {});

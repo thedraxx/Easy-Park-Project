@@ -1,8 +1,11 @@
+import 'package:easy_park/class/userlocation.dart';
+import 'package:easy_park/classApi/httpPeticiones.dart';
 import 'package:easy_park/colors/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:provider/provider.dart';
 
 //DESCRIPCION DE PROVEEDOR SELECCIONADO
 class Seccion extends StatefulWidget {
@@ -13,25 +16,33 @@ class Seccion extends StatefulWidget {
       required this.id,
       required this.latitud,
       required this.longitud,
+      required this.horario,
       required this.cantidad,
-      required this.imagen});
+      required this.imagen,
+      required this.precio});
 
   final String nombre;
   final String direccion;
   final int id;
   final double latitud;
   final double longitud;
+  final String horario;
   final int cantidad;
   final String imagen;
+  final int precio;
 
   @override
-  State<Seccion> createState() => _Page2State();
+  State<Seccion> createState() => _Seccion();
 }
 
-class _Page2State extends State<Seccion> {
-  String _fechaReserva = "";
+class _Seccion extends State<Seccion> {
+  String _fechaIngreso = "";
+  String _fechaSalida = "";
+  late var ProviderUser;
   @override
   Widget build(BuildContext context) {
+    ProviderUser = Provider.of<UserLocation>(context);
+
     return Scaffold(
       body: CustomScrollView(slivers: <Widget>[
         SliverAppBar(
@@ -52,10 +63,7 @@ class _Page2State extends State<Seccion> {
         ),
         SliverToBoxAdapter(
           child: Container(
-            height: 200,
-            width: 100,
             child: Column(
-              //mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
@@ -69,7 +77,7 @@ class _Page2State extends State<Seccion> {
                           fontWeight: FontWeight.bold,
                         )),
                   ),
-                  subtitle: Text("${widget.direccion} Santa fe - Rosario",
+                  subtitle: Text("${widget.direccion}",
                       style: TextStyle(
                         color: azul,
                         fontSize: 18.0,
@@ -85,21 +93,21 @@ class _Page2State extends State<Seccion> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text("✓  Abierto de Lunes a sabado de 7hs a 23hs",
+                      Text("Abierto: ${widget.horario}",
                           style: TextStyle(
                             color: azul,
                             fontSize: 16.0,
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w400,
                           )),
-                      Text("✓  Estacionamiento disponibles: ${widget.cantidad}",
+                      Text("Estacionamiento disponibles: ${widget.cantidad}",
                           style: TextStyle(
                             color: azul,
                             fontSize: 16.0,
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w400,
                           )),
-                      Text("✓  Estadia por hora: \$180",
+                      Text("Estadia por hora: \$${widget.precio}",
                           style: TextStyle(
                             color: azul,
                             fontSize: 16.0,
@@ -125,14 +133,14 @@ class _Page2State extends State<Seccion> {
                         DatePicker.showDateTimePicker(context,
                             showTitleActions: true,
                             minTime: DateTime.now(),
-                            maxTime: DateTime(2025, 6, 7), onChanged: (date) {
-                          print('change $date');
-                        }, onConfirm: (date) {
-                          print('confirm $date');
-                          print(DateTime.tryParse('$date'));
+                            maxTime: DateTime(2025, 6, 7), onChanged: (dateI) {
+                          print('change $dateI');
+                        }, onConfirm: (dateI) {
+                          print('confirm $dateI');
+                          print(DateTime.tryParse('$dateI'));
                           setState(() {
-                            _fechaReserva =
-                                "${date.day}/${date.month} - ${date.hour} : ${date.minute}  ";
+                            _fechaIngreso =
+                                "${dateI.day}/${dateI.month} - ${dateI.hour} : ${dateI.minute}  ";
                           });
                           // _fechaReserva = date;
                         }, currentTime: DateTime.now(), locale: LocaleType.es);
@@ -141,7 +149,38 @@ class _Page2State extends State<Seccion> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            ' Reservar $_fechaReserva',
+                            ' Ingreso $_fechaIngreso',
+                            style: TextStyle(color: Colors.orange),
+                          ),
+                          Icon(
+                            Icons.date_range,
+                            color: azulclaro,
+                          ),
+                        ],
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        DatePicker.showDateTimePicker(context,
+                            showTitleActions: true,
+                            minTime: DateTime.now(),
+                            maxTime: DateTime(2025, 6, 7), onChanged: (dateS) {
+                          print('change $dateS');
+                        }, onConfirm: (dateS) {
+                          print('confirm $dateS');
+                          print(DateTime.tryParse('$dateS'));
+                          setState(() {
+                            _fechaSalida =
+                                "${dateS.day}/${dateS.month} - ${dateS.hour} : ${dateS.minute}  ";
+                          });
+                          // _fechaReserva = date;
+                        }, currentTime: DateTime.now(), locale: LocaleType.es);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            ' Salida $_fechaSalida',
                             style: TextStyle(color: Colors.orange),
                           ),
                           Icon(
@@ -222,68 +261,91 @@ class _Page2State extends State<Seccion> {
         label: const Text('Reservar'),
         onPressed: () {
           //Navigator.of(context).pop();
-          if (_fechaReserva != "") {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Column(
-                    children: [
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      const Text("Codigo de Reserva"),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      Center(
-                        child: Text(
-                          "AG6SH4S",
-                          style: TextStyle(
-                            color: azul,
-                            fontSize: 30.0,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      const Text("fecha: 10/09/2022 hora: 8:00hs",
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w300,
-                          )),
-                    ],
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      child: const Text("Cancelar reserva",
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.red,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                          )),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.close),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
+
+          if (_fechaIngreso != "") {
+            print(ProviderUser.Userid);
+
+            //CREAR RESERVA
+            /*  PeticionesHttp().EnviarReserva(ProviderUser.Userid, widget.id,
+                'GBC916', '2022-09-12 10:00:00', '2022-09-12 10:00:00');*/
+
+            _AlertReserva();
           }
         },
       ),
     );
+  }
+
+  Future<dynamic> _AlertReserva() {
+    final Element = showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Column(
+            children: [
+              const SizedBox(
+                height: 30.0,
+              ),
+              const Text("Codigo de Reserva"),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Center(
+                child: Text(
+                  "AG6SH4S",
+                  style: TextStyle(
+                    color: azul,
+                    fontSize: 30.0,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text("Ingreso: ${_fechaIngreso}hs",
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w300,
+                      )),
+                  Text("Salida: ${_fechaSalida}hs",
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w300,
+                      )),
+                ],
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("Cancelar reserva",
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.red,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                  )),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.close),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+    return Element;
   }
 }

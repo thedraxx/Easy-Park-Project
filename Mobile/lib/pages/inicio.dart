@@ -1,9 +1,11 @@
 import 'package:easy_park/class/Proveedores.dart';
+import 'package:easy_park/class/userlocation.dart';
 import 'package:easy_park/classApi/httpPeticiones.dart';
 import 'package:easy_park/helpers/asyncSnapshotHelper.dart';
 import 'package:easy_park/widgets/navbar.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Inicio extends StatefulWidget {
   const Inicio({super.key});
