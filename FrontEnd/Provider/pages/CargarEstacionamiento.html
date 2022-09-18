@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/index.css" />
+    <title>Formulario</title>
+  </head>
+  <body>
+    <!-- Navbar o barra de navegacion -->
+    <div class="topnav">
+      <h3 class="logo">Easy Park</h3>
+      <a class="active" href="#">Quienes Somos</a>
+      <a href="#">Contacto</a>
+      <a href="#">Como se usa?</a>
+    </div>
+
+    <!-- Formulario -->
+    <form class="login" id="login">
+      <fieldset class="form">
+        <ul class="container-input">
+          <legend class="bienvenido">Cargar Estacionamiento</legend>
+          <li class="input-container">
+            
+            <label for="nomber" class="names">Nombre: </label>
+            <input
+              type="text"
+              name="nombre"
+              id="nombre"
+              class="input"
+              placeholder="Ingrese su Nombre"
+              required
+            />
+          </li>
+          <li class="input-container">
+            <label for="nomber" class="names">Cantidad de Plazas </label>
+            <input
+              type="number"
+              name="plazas"
+              id="plazas"
+              class="input"
+              placeholder="Ingrese Cantidad de plazas"
+              required
+            />
+          </li>
+          <li class="input-container">
+            <label for="nomber" class="names">Horario: </label>
+            <select
+              type="text"
+              name="horario"
+              id="horario"
+              class="input"
+              placeholder="Ingrese su horario"
+              required
+            >
+              <option value="allday">24hs</option>
+              <option value="morning">8am - 12pm</option>
+              <option value="afternoon">13pm - 8pm</option>
+            </select>
+          </li>
+          <li class="input-container">
+            <label for="nomber" class="names">Precio </label>
+            <input
+              type="number"
+              name="precio"
+              id="precio"
+              class="input"
+              placeholder="Ingrese el Precio"
+              required
+            />
+          </li>
+          <li class="input-container">
+            <label for="nomber" class="names">Ciudad: </label>
+            <input
+              type="text"
+              name="ciudad"
+              id="ciudad"
+              class="input"
+              placeholder="Ingrese la Ciudad"
+              required
+            />
+          </li>
+          <li class="input-container">
+            <label for="nomber" class="names">Provincia: </label>
+            <input
+              type="text"
+              name="provincia"
+              id="provincia"
+              class="input"
+              placeholder="Ingrese la provincia"
+              required
+            />
+          </li>
+          <li class="input-container">
+            <label for="nomber" class="names">calle: </label>
+            <input
+              type="text"
+              name="calle"
+              id="calle"
+              class="input"
+              placeholder="Ingrese la Calle"
+              required
+            />
+          </li>
+          <li class="input-container">
+            <label for="nomber" class="names">Numero: </label>
+            <input
+              type="number"
+              name="numero"
+              id="numero"
+              class="input"
+              placeholder="Ingrese la numero"
+              required
+            />
+          </li>
+          <div class = "botones">
+          <li class="submit">
+            <a href="./Home.html" class="button-create">Atras</a>
+          </li>
+          <li class="submit">
+            <input
+              type="submit"
+              name="Entregar"
+              value="Enviar"
+              class="button-submit"
+            />
+          </li>
+        </div>
+          <div id="error"></div>
+        </ul>
+      </fieldset>
+    </form>
+    <script async type="text/javascript" src="../js/dataCargar.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
+</html>
