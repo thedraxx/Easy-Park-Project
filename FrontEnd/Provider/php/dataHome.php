@@ -1,5 +1,6 @@
 <?php
     require '../../../backend/Conexion.php';
+
     class ObtenerPatente extends Conexion{
 
         public function ValidarLogin(){
@@ -17,7 +18,6 @@
                 $db = 'bp6nfzavyucdmj07us1w';
 
                 $connect = new mysqli("$host","$user","$pass","$db");
-
                 $consulta = $connect -> query("SELECT * FROM reserva WHERE token = '$token'");
                 $ver = mysqli_num_rows($consulta);
                 if($ver > 0){
@@ -36,5 +36,5 @@
 
 
     $test = new ObtenerPatente;
-    $test->patente( $token,$estado,$cochera);
-?>
+
+    $test->patente( $token,$estado,$cocheras);
