@@ -12,6 +12,4 @@ if(isset($_POST['cod_cliente'])&& $_POST['cod_cliente'] != " "){
     echo "Error! sin datos";
 }
 
-
-
 ?>

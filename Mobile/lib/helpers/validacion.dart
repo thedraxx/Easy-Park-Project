@@ -51,3 +51,11 @@ OcultarWidget(Function update, bool data) {
   update();
   return result;
 }
+
+//VALIDAR PATENTE
+ValidaPatente(dynamic data) {
+  if (data!.isEmpty || data.length < 6) {
+    return "error";
+  }
+  return null;
+}

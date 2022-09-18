@@ -10,9 +10,10 @@ if(isset($_POST['calle']) && $_POST['calle'] != " " && isset($_POST['numero']) &
     $newLatLng=ObtenerLatLng($_POST['calle'],$_POST['numero'],$_POST['ciudad'],$_POST['provincia']);
  
     $direccion = $_POST['calle']." ".$_POST['numero']." ".$_POST['ciudad']." ".$_POST['provincia']; 
-    $nuevoProv = new RegistroEstac();
-    //EJEMPLO = (NULL, 23, 'San juan 100', -32.9644981, -60.6499201, '8 hs a 20 hs', 'LA NUEVA', 100, 'https://atrapatuled.es/modules/amazzingblog/views/img/uploads/posts/8/xl/3-5fa074a4d235c.jpg', '150')
-    $nuevoProv -> IngresarProv($_POST['cod_prov'],$direccion,$newLatLng[0],$newLatLng[1],$_POST['horario'],$_POST['nombre'],$_POST['cantidad'],$_POST['imagen'],$_POST['precio']);
+
+        $nuevoProv = new RegistroEstac();
+        //EJEMPLO = (NULL, 23, 'San juan 100', -32.9644981, -60.6499201, '8 hs a 20 hs', 'LA NUEVA', 100, 'https://atrapatuled.es/modules/amazzingblog/views/img/uploads/posts/8/xl/3-5fa074a4d235c.jpg', '150')
+        $nuevoProv -> IngresarProv($_POST['cod_prov'],$direccion,$newLatLng[0],$newLatLng[1],$_POST['horario'],$_POST['nombre'],$_POST['cantidad'],$_POST['imagen'],$_POST['precio']);
 
 }else{
     echo "Error en datos";

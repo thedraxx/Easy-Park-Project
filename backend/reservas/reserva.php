@@ -17,14 +17,15 @@ class Reserva extends Conexion{
              VALUES ('$token',$cliente,$estac,'$patente','$fecha','$ingreso','$salida')");
  
              if($nuevaReserva === TRUE){
-                 echo "RESERVA CREADA";
+                echo $token;
              } else {
-             echo "ERROR";
+             echo "0";
              }
          }
 
- //CONSULTA DATOS DE RESERVA INGRESANDO TOKEN
+ //********* CONSULTA DATOS DE RESERVA INGRESANDO TOKEN - DEVUELVE (DATOS DE RESERVA O FALSE SI NO EXISTE)***********//
          public function MostrarReserva($token){
+            $op =  FALSE;
              $consulta = mysqli_query($this -> conexion_db,
              "SELECT cl.nombre,res.patente,res.ingreso,res.salida FROM reserva AS res JOIN cliente AS cl USING(cod_cliente) WHERE res.token = '$token'");
              $ver = mysqli_num_rows($consulta);
@@ -32,8 +33,9 @@ class Reserva extends Conexion{
                 $datos = mysqli_fetch_assoc($consulta);
                 echo json_encode($datos, JSON_NUMERIC_CHECK|JSON_PRETTY_PRINT| JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
             }else{
-                echo '0';
+                echo intval($op);
             }
+       
          }
  }
 

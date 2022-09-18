@@ -71,11 +71,12 @@ class PeticionesHttp {
   }
 
 //ENVIA DATOS DE NUEVA RESERVA
-  Future<dynamic> EnviarReserva(
-      int cod_cliente, int cod_estac, String patente, ingreso, salida) async {
+  Future<String> EnviarReserva(
+      cod_cliente, cod_estac, patente, ingreso, salida) async {
+    String respuesta = " ";
     try {
       var url = Uri.parse(
-          "http://localhost/dashboard/Mobile-Easy-Park/backend/Reservas//prueba.php");
+          "https://tonnish-swivel.000webhostapp.com/reservas/newReserva.php");
       final response = await http.post(url, body: {
         'cod_cliente': cod_cliente,
         'cod_estac': cod_estac,
@@ -87,11 +88,13 @@ class PeticionesHttp {
       if (response.statusCode == 200) {
         var data = await json.decode(json.encode(response.body));
         print(data);
+        respuesta = data.toString();
       } else {
         print('ERROR CONEXION');
       }
     } catch (e) {
       print(e);
     }
+    return respuesta;
   }
 }

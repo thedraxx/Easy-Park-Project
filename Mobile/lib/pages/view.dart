@@ -1,11 +1,10 @@
-import 'package:easy_park/class/userlocation.dart';
-import 'package:easy_park/classApi/httpPeticiones.dart';
 import 'package:easy_park/colors/color.dart';
+
+import 'package:easy_park/pages/page_reseva.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:provider/provider.dart';
 
 //DESCRIPCION DE PROVEEDOR SELECCIONADO
 class Seccion extends StatefulWidget {
@@ -36,13 +35,8 @@ class Seccion extends StatefulWidget {
 }
 
 class _Seccion extends State<Seccion> {
-  String _fechaIngreso = "";
-  String _fechaSalida = "";
-  late var ProviderUser;
   @override
   Widget build(BuildContext context) {
-    ProviderUser = Provider.of<UserLocation>(context);
-
     return Scaffold(
       body: CustomScrollView(slivers: <Widget>[
         SliverAppBar(
@@ -121,83 +115,9 @@ class _Seccion extends State<Seccion> {
             ),
           ),
         ),
+        //***********MAPA************
         SliverToBoxAdapter(
-          child: Column(
-            children: [
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    TextButton(
-                      onPressed: () {
-                        DatePicker.showDateTimePicker(context,
-                            showTitleActions: true,
-                            minTime: DateTime.now(),
-                            maxTime: DateTime(2025, 6, 7), onChanged: (dateI) {
-                          print('change $dateI');
-                        }, onConfirm: (dateI) {
-                          print('confirm $dateI');
-                          print(DateTime.tryParse('$dateI'));
-                          setState(() {
-                            _fechaIngreso =
-                                "${dateI.day}/${dateI.month} - ${dateI.hour} : ${dateI.minute}  ";
-                          });
-                          // _fechaReserva = date;
-                        }, currentTime: DateTime.now(), locale: LocaleType.es);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            ' Ingreso $_fechaIngreso',
-                            style: TextStyle(color: Colors.orange),
-                          ),
-                          Icon(
-                            Icons.date_range,
-                            color: azulclaro,
-                          ),
-                        ],
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        DatePicker.showDateTimePicker(context,
-                            showTitleActions: true,
-                            minTime: DateTime.now(),
-                            maxTime: DateTime(2025, 6, 7), onChanged: (dateS) {
-                          print('change $dateS');
-                        }, onConfirm: (dateS) {
-                          print('confirm $dateS');
-                          print(DateTime.tryParse('$dateS'));
-                          setState(() {
-                            _fechaSalida =
-                                "${dateS.day}/${dateS.month} - ${dateS.hour} : ${dateS.minute}  ";
-                          });
-                          // _fechaReserva = date;
-                        }, currentTime: DateTime.now(), locale: LocaleType.es);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            ' Salida $_fechaSalida',
-                            style: TextStyle(color: Colors.orange),
-                          ),
-                          Icon(
-                            Icons.date_range,
-                            color: azulclaro,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: SizedBox(height: 30.0),
+          child: SizedBox(height: 5.0),
         ),
         SliverToBoxAdapter(
           child: Container(
@@ -260,92 +180,16 @@ class _Seccion extends State<Seccion> {
         backgroundColor: azul,
         label: const Text('Reservar'),
         onPressed: () {
-          //Navigator.of(context).pop();
-
-          if (_fechaIngreso != "") {
-            print(ProviderUser.Userid);
-
-            //CREAR RESERVA
-            /*  PeticionesHttp().EnviarReserva(ProviderUser.Userid, widget.id,
-                'GBC916', '2022-09-12 10:00:00', '2022-09-12 10:00:00');*/
-
-            _AlertReserva();
-          }
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PageReserva(
+                    id_estac: widget.id.toString(),
+                    nombre: widget.nombre,
+                    precio: double.parse(widget.precio.toString()))),
+          );
         },
       ),
     );
-  }
-
-  Future<dynamic> _AlertReserva() {
-    final Element = showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Column(
-            children: [
-              const SizedBox(
-                height: 30.0,
-              ),
-              const Text("Codigo de Reserva"),
-              const SizedBox(
-                height: 10.0,
-              ),
-              Center(
-                child: Text(
-                  "AG6SH4S",
-                  style: TextStyle(
-                    color: azul,
-                    fontSize: 30.0,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 30.0,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text("Ingreso: ${_fechaIngreso}hs",
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w300,
-                      )),
-                  Text("Salida: ${_fechaSalida}hs",
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w300,
-                      )),
-                ],
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text("Cancelar reserva",
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.red,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                  )),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-    return Element;
   }
 }
