@@ -6,7 +6,7 @@
             parent::Conexion();
         }
         
-        public function patente($token, $estado){
+        public function patente($token, $estado,$cocheras){
 
             if($token == '' or $estado == ''){
                 echo json_encode( "validacion registro andando: <br>Usuario: '$token'. <br>pass: '.$estado'");
@@ -32,8 +32,9 @@
 
     $token =  $_POST['token'];
     $estado = $_POST['estado'];
+    $cocheras = $_POST['cocheras'];
 
 
     $test = new ObtenerPatente;
-    $test->patente( $token,$estado);
+    $test->patente( $token,$estado,$cochera);
 ?>
