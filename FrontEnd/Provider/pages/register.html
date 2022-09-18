@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/register.css" />
+    <link rel="stylesheet" href="../styles/index.css" />
     <title>Formulario</title>
   </head>
   <body>
@@ -22,40 +22,33 @@
         <ul class="container-input">
           <legend class="bienvenido">Bienvenido</legend>
           <li class="input-container">
-            <label for="nomber" class="names">Nombre Y Apellido: </label>
+            <label for="nomber" class="names">Nombre</label>
             <input
               type="text"
-              name="nombreapellido"
+              name="nombre"
               id="nombre"
               class="input"
+              required
             />
           </li>
           <li class="input-container">
-            <label for="nomber" class="names">Contrasena: </label>
-            <input type="text" name="password" id="password" class="input" />
+            <label for="nomber" class="names">Contrasena:</label>
+            <input type="text" name="password" id="password" class="input" required />
           </li>
           <li class="input-container">
-            <label for="nomber" class="names">Usuario: </label>
-            <input type="text" name="usuario" id="usuario" class="input" />
-          </li>
-          <li class="input-container">
-            <label for="password" class="names">Localidad: </label>
-            <input type="text" name="localidad" id="localidad" class="input" />
+            <label for="nomber" class="names">Telefono: </label>
+            <input type="number" name="telefono" id="telefono" class="input" required/>
           </li>
           <li class="input-container">
             <label for="password" class="names">Email: </label>
-            <input type="text" name="email" id="email" class="input" />
+            <input type="email" name="email" id="email" class="input" required/>
           </li>
           <li class="input-container">
-            <label for="password" class="names">Domicilio: </label>
-            <input type="text" name="domicilio" id="domicilio" class="input" />
-          </li>
-          <li class="input-container">
-            <label for="password" class="names">numero de plazas: </label>
-            <input type="number" name="plazas" id="plazas" class="input" />
+            <label for="password" class="names">Localidad: </label>
+            <input type="text" name="localidad" id="localidad" class="input" required/>
           </li>
           <div id="error"></div>
-
+          <div class = "botones">
           <li class="submit">
             <a href="../index.html" class="button-create">Cancelar</a>
           </li>
@@ -67,6 +60,7 @@
               class="button-submit"
             />
           </li>
+        </div>
         </ul>
       </fieldset>
     </form>

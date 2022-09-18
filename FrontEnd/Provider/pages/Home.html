@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/register.css" />
+    <link rel="stylesheet" href="../styles/index.css" />
     <title>Formulario</title>
   </head>
   <body>
@@ -20,7 +20,7 @@
     <form class="login" id="login">
       <fieldset class="form">
         <ul class="container-input">
-          <legend class="bienvenido">Bienvenido</legend>
+          <legend class="bienvenido">Gestionar Estacionamiento</legend>
           <li class="input-container">
             <label for="nomber" class="names">Token Del Cliente: </label>
             <input
@@ -29,30 +29,10 @@
               id="token"
               class="input"
               placeholder="Ingrese el Token del cliente"
+              required
             />
           </li>
-          <li class="input-container">
-            <label for="nomber" class="names">Ingrese Plaza: </label>
-            <input
-              type="text"
-              name="numero de plazas"
-              id="plaza"
-              class="input"
-              placeholder="Ingrese la plaza"
-            />
-          </li>
-
-          <!-- <li class="input-container">
-            <label for="nomber" class="names">Estado: </label>
-            <input
-              type="text"
-              name="estado"
-              id="estado"
-              class="input"
-              placeholder="Ingrese la plaza"
-            />
-          </li> -->
-
+        
           <li class="input-container">
             <label for="nomber" class="names">Estado: </label>
             <Select
@@ -60,6 +40,7 @@
               name="estado"
               id="estado"
               class="input"
+             
               placeholder="Ingrese la plaza"
             >
           <option value="Ocupado">Ocupado</option>
@@ -67,9 +48,10 @@
           <option value="Disponible">Disponible</option>
           </Select>
           </li>
-
-          <li class="submit">
-            <a href="../index.html" class="button-create">Salir</a>
+      
+          <div class="botones">
+           <li class="submit">
+            <a href="./CargarEstacionamiento.html" class="button-create">Cargar</a>
           </li>
           <li class="submit">
             <input
@@ -77,12 +59,20 @@
               name="Entregar"
               value="Enviar"
               class="button-submit"
+              required
             />
           </li>
+          <li class="submit">
+            <a href="../index.html" class="button-create">Salir</a>
+          </li>
+        </div>
           <div id="error"></div>
+          <div id="resultado"></div>
+
         </ul>
       </fieldset>
     </form>
     <script async type="text/javascript" src="../js/dataHome.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

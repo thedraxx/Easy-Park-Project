@@ -22,15 +22,15 @@
         <ul class="container-input">
           <legend class="bienvenido">Bienvenido</legend>
           <li class="input-container">
-            <label type="text" class="names">Usuario: </label>
-            <input type="text" name="usuario" id="usuario" class="input" />
+            <label type="text" class="names" >Usuario: </label>
+            <input type="text" name="usuario" id="usuario" class="input" required/>
           </li>
           <li class="input-container">
-            <label for="password" class="names">Contrasena: </label>
-            <input type="text" name="password" id="password" class="input" />
+            <label for="password" class="names" >Contrasena: </label>
+            <input type="text" name="password" id="password" class="input" required/>
           </li>
           <div id="error"></div>
-
+          <div class = "botones">
           <li class="submit">
             <a href="./pages/register.html" class="button-create"
               >No tienes cuenta? click aca</a
@@ -44,6 +44,7 @@
               class="button-submit"
             />
           </li>
+        </div>
         </ul>
       </fieldset>
     </form>
