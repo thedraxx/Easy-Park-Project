@@ -59,6 +59,8 @@ $calle = $_POST['calle'];
 $numero = $_POST['numero'];
 $codigo = $_POST['codigo'];
 
+
+
 $test = new CargarVehiculo;
 $test->patente(
     $nombre,

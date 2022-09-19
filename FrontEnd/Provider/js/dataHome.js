@@ -36,7 +36,6 @@ class Gestion {
         }
     }
 
-
     gestion(datos) {
         fetch(url, {
             method: 'POST',
@@ -44,6 +43,7 @@ class Gestion {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 if (data != false) {
                     Swal.fire({
                         title: 'Genial!',
@@ -52,11 +52,14 @@ class Gestion {
                         imageHeight: 300,
                         imageAlt: 'Felicidades!',
                     })
-                } else if (data == false) {
-                    document.getElementById("error").innerHTML = 'No se encontro el vehiculo';
-                    setTimeout(() => {
-                        document.getElementById("error").innerHTML = "";
-                    }, 3000);
+                } else if (data === false) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: `El vehiculo con la patente solicitada no se encuentra en el estacionamiento`,
+                        imageWidth: 600,
+                        imageHeight: 300,
+                        imageAlt: 'Error!',
+                    })
                 }
             })
     }
@@ -72,7 +75,6 @@ window.onload = () => {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             data.map( (cochera) => { 
                 return(
                     cocheras.innerHTML += `<option value="${cochera.cod_estac}">${cochera.direccion}</option>`
@@ -80,6 +82,7 @@ window.onload = () => {
             })
         })
 }
+
 
 login.onsubmit = (e) => {
     e.preventDefault();
