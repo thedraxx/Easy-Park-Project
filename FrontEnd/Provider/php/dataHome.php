@@ -34,8 +34,13 @@
 
             // Si el estado es Ocupado, sumamos 1 a la cantidad de cocheras ocupadas
             if ($this->estado  =='Ocupado') {
+                if ($disponible == 0) {
+                    return false;
+                }
+                else{
                 $cantidad = $cantidad + 1;
-                $disponible = $disponible - 1;  
+                $disponible = $disponible - 1; 
+            } 
             }
             //  Si el estado es Disponible, restamos 1 a la cantidad de cocheras ocupadas
             if ($this->estado  == 'Disponible') {
@@ -44,9 +49,13 @@
             }
             // Si el estado es Mantenimiento, restamos 1 a la cantidad de cocheras ocupadas
             if ($this->estado  == 'Reservado') {
+                if ($disponible == 0) {
+                    return false;
+                }
+                else{
                 $cantidad = $cantidad + 1;
-                $disponible = $disponible - 1;        
-                
+                $disponible = $disponible - 1; 
+            }        
             }
 
             $op = FALSE;
@@ -107,5 +116,9 @@
 
     if ($CambiarEstado) {
         $test->patente($token, $estado);
+    } 
+    else{
+        echo json_encode(404);
+        return;
     }
    

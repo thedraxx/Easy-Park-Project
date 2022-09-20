@@ -60,6 +60,14 @@ class Gestion {
                         imageHeight: 300,
                         imageAlt: 'Error!',
                     })
+                } if (data === 404) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: `No hay mas espacio en el estacionamiento`,
+                        imageWidth: 600,
+                        imageHeight: 300,
+                        imageAlt: 'Error!',
+                    })
                 }
             })
     }
