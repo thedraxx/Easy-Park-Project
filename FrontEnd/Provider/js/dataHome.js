@@ -47,7 +47,7 @@ class Gestion {
                 if (data != false) {
                     Swal.fire({
                         title: 'Genial!',
-                        text: `El vehiculo con la patente ${data.patente} ingreso el ${data.ingreso} y sale el ${data.salida}`,
+                        text: `El vehiculo con la patente ${data.patente} ingreso/salio el ${data.ingreso} -  ${data.salida}`,
                         imageWidth: 600,
                         imageHeight: 300,
                         imageAlt: 'Felicidades!',
