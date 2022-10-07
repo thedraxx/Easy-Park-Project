@@ -12,13 +12,21 @@ class Registro extends  Conexion{
     public function IngresarUsuario($nombre,$mail,$localidad,$pass,$tel,$tipoUsuario,$id){
         $fecha = getDatetimeNow();
         try{
-            $ingreso = mysqli_query($this -> conexion_db, "INSERT INTO $tipoUsuario (`$id`, `nombre`, `mail`, `password`, `telefono`, `fecha_inscripcion`,`localidad`)
-            VALUES (NULL, '$nombre','$mail','$pass',$tel, '$fecha','$localidad')");
-               if($ingreso === TRUE){
-                echo "USUARIO REGISTRADO";
-              
-            } else {
-              echo "ERROR NO SE PUDO REGISTRAR";
+
+            $verUsuario = mysqli_query($this -> conexion_db, "SELECT * FROM $tipoUsuario WHERE mail = '$mail'");
+            $ver = mysqli_num_rows($verUsuario);
+            
+            if($ver > 0){
+                echo "0";
+            }else{
+                $ingreso = mysqli_query($this -> conexion_db, "INSERT INTO $tipoUsuario (`$id`, `nombre`, `mail`, `password`, `telefono`, `fecha_inscripcion`,`localidad`)
+                VALUES (NULL, '$nombre','$mail','$pass',$tel, '$fecha','$localidad')");
+                if($ingreso === TRUE){
+                    echo "1";
+                    
+                }else{
+                    echo "ERROR";
+                }
             }
 
         }catch(Exception $e){

@@ -1,8 +1,7 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:easy_park/class/Proveedores.dart';
 import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class PeticionesHttp {
   //GET DE TODOS LOS LISTAS DE PROVEEDORES
@@ -48,7 +47,7 @@ class PeticionesHttp {
 //ENVIA DATOS DE UN NUEVO USUARIO A BACKEND
   Future<dynamic> RegistraDb(String nombre, String mail, String localidad,
       String pass, String tel) async {
-    print("EL REGISTRO ES $nombre / $mail  / $tel  /$localidad");
+    String result = "";
     try {
       var url = Uri.parse(
           "https://tonnish-swivel.000webhostapp.com/login/newRegistro.php");
@@ -62,12 +61,22 @@ class PeticionesHttp {
       }).timeout(const Duration(seconds: 90));
 
       var data = await json.decode(json.encode(response.body));
-      print(data);
+      switch (data) {
+        case '0':
+          result = data;
+          break;
+        case '1':
+          result = data;
+          break;
+        case 'ERROR':
+          result = data;
+      }
     } on TimeoutException catch (e) {
       print("Termino tiempo de consulta");
     } on Error catch (e) {
       print("ERROR EN HTTP");
     }
+    return result;
   }
 
 //ENVIA DATOS DE NUEVA RESERVA

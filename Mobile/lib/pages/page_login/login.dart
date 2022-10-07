@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
                   ),
                   child: TextFormField(
                     controller: PassController,
-                    validator: (value) => ValidaPass(value),
+                    validator: (value) => ValidaPass(value!),
                     onSaved: (newValue) => _pass = newValue!,
                     obscureText: _hide,
                     cursorColor: claro,
@@ -141,9 +141,6 @@ class _LoginState extends State<Login> {
                   minWidth: 300.0,
                   height: 50.0,
                   onPressed: () {
-                    /* Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const Home()));*/
-
                     final form = _formkey.currentState;
                     if (form!.validate()) {
                       form.save();
@@ -155,8 +152,8 @@ class _LoginState extends State<Login> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const Home()));
                         } else {
-                          UsuarioController.clear();
-                          PassController.clear();
+                          // UsuarioController.clear();
+                          // PassController.clear();
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             backgroundColor: naranja,
                             elevation: 10.0,

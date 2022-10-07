@@ -10,6 +10,7 @@ class Card_Prov extends StatefulWidget {
       required this.id,
       required this.latitud,
       required this.longitud,
+      required this.distancia,
       required this.horario,
       required this.cantidad,
       required this.imagen,
@@ -20,6 +21,7 @@ class Card_Prov extends StatefulWidget {
   final int id;
   final double latitud;
   final double longitud;
+  final double distancia;
   final String horario;
   final int cantidad;
   final String imagen;
@@ -46,85 +48,108 @@ class _Card_ProvState extends State<Card_Prov> {
                 imagen: widget.imagen,
                 precio: widget.precio)));
       },
-      child: Container(
-        height: 120,
-        width: 700,
+      child: SizedBox(
+        height: 130,
+        //width: 700,
         child: Card(
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10.0),
             ),
           ),
-          elevation: 5,
+          elevation: 2,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                margin: const EdgeInsets.all(5.0),
-                height: 120,
-                width: 120,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(//
-                        "${widget.imagen}"), //AssetImage('assets/Parking.jpg'),
-                    fit: BoxFit.cover,
+              Expanded(
+                flex: 2,
+                child: Container(
+                  margin: const EdgeInsets.all(5.0),
+                  height: 120,
+                  width: 120,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "${widget.imagen}"), //AssetImage('assets/Parking.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                    color: claro,
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  color: azulclaro,
-                  borderRadius: BorderRadius.circular(10),
                 ),
-                // color: Colors.red,
               ),
-              Container(
-                height: 120,
-                width: 150,
-                //color: Colors.amber,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${widget.nombre}",
-                      style: TextStyle(
-                        fontSize: 16.0,
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 8.0,
+                  ),
+                  child: SizedBox(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListTile(
+                          title: Text(
+                            "${widget.nombre}",
+                            style: const TextStyle(
+                              fontSize: 15.0,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 78, 76, 76),
+                            ),
+                          ),
+                          subtitle: Text(
+                            "${widget.direccion}",
+                            style: const TextStyle(
+                              fontSize: 12.0,
+                              fontFamily: 'Montserrat',
+                              //fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 78, 76, 76),
+                            ),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "\$${widget.precio}",
+                              style: TextStyle(
+                                fontSize: 13.0,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                color: azulclaro,
+                              ),
+                            ),
+                            Text(
+                              " x hora",
+                              style: TextStyle(
+                                fontSize: 13.0,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w300,
+                                color: azulclaro,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                  child: Center(
+                    child: Text(
+                      "${widget.distancia.toStringAsFixed(1)} km",
+                      style: const TextStyle(
+                        fontSize: 14.0,
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 78, 76, 76),
+                        color: Colors.orangeAccent,
                       ),
                     ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Text(
-                      "${widget.direccion}",
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontFamily: 'Montserrat',
-                        //fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 78, 76, 76),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "\$${widget.precio} por hora",
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontFamily: 'Montserrat',
-                        //fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 78, 76, 76),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(right: 20.0),
-                child: Text(
-                  "2 Kms",
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                    color: Colors.orangeAccent,
                   ),
                 ),
               ),
