@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_park/classApi/httpPeticiones.dart';
 import 'package:easy_park/colors/color.dart';
 import 'package:easy_park/helpers/validacion.dart';
@@ -190,7 +192,7 @@ class _RegistroState extends State<Registro> {
                           ),
                           child: TextFormField(
                             controller: myController,
-                            validator: (value) => ValidaPass(value),
+                            validator: (value) => ValidaPass(value!),
                             onSaved: (newValue) => _pass = newValue!,
                             obscureText: _hide,
                             cursorColor: claro,
@@ -274,17 +276,29 @@ class _RegistroState extends State<Registro> {
                                   myController.text,
                                   telController.text)
                               .then((result) {
+                            String mensaje = result;
+
+                            if (result == "1") {
+                              /********* USUARIO REGISTRADO **********/
+                              mensaje = "Usuario Registrado";
+                              Timer(const Duration(seconds: 2), () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Login()));
+                              });
+                            } else if (result == "0") {
+                              /********* ERROR MAIL YA ESTA REGISTRADO **********/
+                              mensaje = "El mail ingresade esta registrado";
+                            }
+                            /********* MUESTRA RESULTADO DE LA OPERACION CON UN MENSAJE **********/
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               backgroundColor: naranja,
                               elevation: 10.0,
                               content: Text(
-                                'Usuario Registrado',
+                                mensaje,
                                 style: TextStyle(color: azul),
                               ),
                               duration: const Duration(seconds: 1),
                             ));
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Login()));
                           });
                         }
                       },

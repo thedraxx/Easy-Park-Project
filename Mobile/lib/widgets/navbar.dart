@@ -9,41 +9,37 @@ class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          height: 180,
           color: azul,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const SizedBox(
-                width: 10,
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(20.0),
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          color: claro,
-                          borderRadius: BorderRadius.circular(50),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 50, left: 20, right: 10, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            color: claro,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text("Easy Park",
-                          style: TextStyle(color: claro, fontSize: 15)),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text("Easy Park",
+                            style: TextStyle(color: claro, fontSize: 15)),
+                      ],
+                    ),
+                    IconButton(
                         onPressed: () {
                           Navigator.of(context).push(
                               MaterialPageRoute(builder: (context) => Login()));
@@ -52,42 +48,46 @@ class Navbar extends StatelessWidget {
                           Icons.menu,
                           color: claro,
                         )),
-                  )
-                ],
+                  ],
+                ),
               ),
+              const SizedBox(height: 20),
 
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                      margin: const EdgeInsets.only(left: 10),
-                      width: 280,
-                      decoration: BoxDecoration(
-                        color: azulclaro,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: TextField(
-                        cursorColor: claro,
-                        decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            border: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            contentPadding: const EdgeInsets.only(
-                                left: 15, bottom: 11, top: 14, right: 15),
-                            hintText: 'Buscar',
-                            hintStyle: TextStyle(
-                              color: claro,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w100,
-                            ),
-                            labelStyle: TextStyle(color: claro),
-                            suffixIcon: IconButton(
-                                splashRadius: 20,
-                                onPressed: () {},
-                                icon: const Icon(Icons.clear))),
+                  Expanded(
+                      flex: 6,
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 20, bottom: 10),
+                        decoration: BoxDecoration(
+                          color: azulclaro,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: TextField(
+                          cursorColor: claro,
+                          decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              contentPadding: const EdgeInsets.only(
+                                  left: 15, bottom: 11, top: 14, right: 15),
+                              hintText: 'Buscar',
+                              hintStyle: TextStyle(
+                                color: claro,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w100,
+                              ),
+                              labelStyle: TextStyle(color: claro),
+                              suffixIcon: IconButton(
+                                  splashRadius: 20,
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.clear))),
+                        ),
                       )),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
+
+                  Expanded(
+                    flex: 1,
                     child: IconButton(
                         splashRadius: 20,
                         onPressed: () {},
@@ -97,6 +97,7 @@ class Navbar extends StatelessWidget {
                           size: 20,
                         )),
                   ),
+                  //  ),
                 ],
               ),
               //Boton_cat(),

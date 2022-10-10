@@ -1,3 +1,5 @@
+import 'package:easy_park/class/Proveedores.dart';
+import 'package:easy_park/classApi/httpPeticiones.dart';
 import 'package:easy_park/colors/color.dart';
 import 'package:easy_park/helpers/location.dart';
 
@@ -20,12 +22,15 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late var ProviderLocation;
+  late Future<List<Proveedores>> futureProv;
 
   bool isOffline = false;
 
   @override
   void initState() {
     initializeLocationAndSave(_NewLocation);
+    final Apisprovs = PeticionesHttp();
+    futureProv = Apisprovs.fetchProveedores();
     super.initState();
   }
 
@@ -43,6 +48,7 @@ class _HomeState extends State<Home> {
       DeviceOrientation.portraitDown,
     ]);
     ProviderLocation = Provider.of<UserLocation>(context);
+
     return Scaffold(
         body: pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(

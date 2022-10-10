@@ -12,15 +12,16 @@ class Reserva extends Conexion{
          }
 //CREA NUEVA RESERVA
          public function CrearReserva($token,$cliente,$estac,$patente, $ingreso,$salida){
-             $fecha = getDatetimeNow();
-             $nuevaReserva = mysqli_query($this -> conexion_db,"INSERT INTO reserva (`token`, `cod_cliente`, `cod_estac`, `patente`, `fecha`, `ingreso`,`salida`)
-             VALUES ('$token',$cliente,$estac,'$patente','$fecha','$ingreso','$salida')");
+            $fecha = getDatetimeNow();
+            $nuevaReserva = mysqli_query($this -> conexion_db,"INSERT INTO reserva (`token`, `cod_cliente`, `cod_estac`, `patente`, `fecha`, `ingreso`,`salida`)
+            VALUES ('$token',$cliente,$estac,'$patente','$fecha','$ingreso','$salida')");
+
+            $estadoReserva = mysqli_query($this -> conexion_db,"INSERT INTO estado_reserva (`token`, `entrada`, `salida`, `cancelacion`, `fecha_ingr`, `fecha_sal`)
+            VALUES ('$token',0,0,0,NULL,NULL)");
  
-             if($nuevaReserva === TRUE){
-                echo $token;
-             } else {
-             echo "0";
-             }
+            if($nuevaReserva === TRUE AND $estadoReserva === TRUE) echo $token;
+            else echo "0";
+            
          }
 
  //********* CONSULTA DATOS DE RESERVA INGRESANDO TOKEN - DEVUELVE (DATOS DE RESERVA O FALSE SI NO EXISTE)***********//
@@ -37,6 +38,33 @@ class Reserva extends Conexion{
             }
        
          }
+
+         /*********MODIFICACION DE ESTADO DE RESERVA********************/
+
+        /* public function tipoOperacion($token,$tipo){
+            $op =  FALSE;
+
+            if($tipo == "i"){
+                $actuliza = mysqli_query($this -> conexion_db,
+                "UPDATE 'estado_reserva' SET 'entrada' = 1 WHERE 'token' = $token");
+            }elseif($tipo == "s"){
+                $actuliza = mysqli_query($this -> conexion_db,
+                "UPDATE 'estado_reserva' SET 'salida' = 1 WHERE 'token' = $token");
+            }else{
+                $actuliza = mysqli_query($this -> conexion_db,
+                "UPDATE 'estado_reserva' SET 'concelacion' = 1 WHERE 'token' = $token");
+            }
+             $ver = mysqli_num_rows($actuliza);
+             if($ver > 0){
+                $datos = mysqli_fetch_assoc($actuliza);
+                echo json_encode($datos, JSON_NUMERIC_CHECK|JSON_PRETTY_PRINT| JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+            }else{
+                echo intval($op);
+            }
+       
+         }*/
+
+
  }
 
 ?>

@@ -186,6 +186,7 @@ class _PageReservaState extends State<PageReserva> {
                       ),
                       child: TextFormField(
                         controller: PatenteController,
+                        textCapitalization: TextCapitalization.characters,
 
                         validator: (value) => ValidaPatente(value!),
                         //keyboardType: TextInputType.emailAddress,
@@ -280,27 +281,38 @@ class _PageReservaState extends State<PageReserva> {
   }
 
   void _Calendario(tipo) {
+    print(IngresoController.text);
+
     DatePicker.showDateTimePicker(context,
         showTitleActions: true,
-        minTime: DateTime.now(),
-        maxTime: DateTime(2023, 6, 7), onChanged: (date) {
-      //  print('change $date');
+        minTime: IngresoController.text.isNotEmpty
+            ? DateTime.parse(IngresoController.text)
+            : DateTime.now(),
+        maxTime: SalidaController.text.isNotEmpty
+            ? DateTime.parse(SalidaController.text)
+            : DateTime.now().add(const Duration(days: 1)), onChanged: (date) {
+      print('change $date');
     }, onConfirm: (date) {
       setState(() {
         if (tipo == "i") {
           Ingreso = date.toString();
-          IngresoController.text =
-              "Ingreso: ${getFormattedDate(date.toString())}";
+          IngresoController.text = "${date.toString()}";
+          Salida = " ";
+          SalidaController.clear();
+          total = 0;
         } else {
           Salida = date.toString();
-          SalidaController.text =
-              "Salida: ${getFormattedDate(date.toString())}";
+          SalidaController.text = "${date.toString()}";
         }
         if (Ingreso != " " && Salida != " ") {
           total = double.parse(Costo(Ingreso, Salida, widget.precio));
         }
       });
-    }, currentTime: DateTime.now(), locale: LocaleType.es);
+    },
+        currentTime: IngresoController.text.isNotEmpty
+            ? DateTime.parse(IngresoController.text)
+            : DateTime.now(),
+        locale: LocaleType.es);
   }
 
   Future<dynamic> _AlertReserva(token) {

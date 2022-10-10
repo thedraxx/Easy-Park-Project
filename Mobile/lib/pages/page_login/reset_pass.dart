@@ -1,4 +1,5 @@
 import 'package:easy_park/colors/color.dart';
+import 'package:easy_park/helpers/distancias.dart';
 import 'package:easy_park/helpers/validacion.dart';
 import 'package:easy_park/pages/page_login/login.dart';
 
