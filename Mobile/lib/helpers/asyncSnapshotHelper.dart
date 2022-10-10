@@ -37,17 +37,21 @@ Widget asyncSnapshotHelper(AsyncSnapshot snapshot, userLocation, context) {
           int cantidad = data['cantidad'];
           String imagen = data['imagen'];
           int precio = data['precio'];
+          int cant_actual = data['cant_actual'];
+
           return Card_Prov(
-              nombre: nombre,
-              direccion: direccion,
-              cantidad: cantidad,
-              id: id,
-              latitud: lat,
-              longitud: long,
-              distancia: distancia,
-              horario: horario,
-              imagen: imagen,
-              precio: precio);
+            nombre: nombre,
+            direccion: direccion,
+            cantidad: cantidad,
+            id: id,
+            latitud: lat,
+            longitud: long,
+            distancia: distancia,
+            horario: horario,
+            imagen: imagen,
+            precio: precio,
+            cant_actual: cant_actual,
+          );
         });
 
     /*ListView.builder(

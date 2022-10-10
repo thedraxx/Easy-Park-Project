@@ -85,7 +85,7 @@ class PeticionesHttp {
     String respuesta = " ";
     try {
       var url = Uri.parse(
-          "https://tonnish-swivel.000webhostapp.com/reservas/newReserva.php");
+          "https://tonnish-swivel.000webhostapp.com/estado_estac/newReserva.php");
       final response = await http.post(url, body: {
         'cod_cliente': cod_cliente,
         'cod_estac': cod_estac,

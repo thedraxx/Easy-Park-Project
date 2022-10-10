@@ -18,7 +18,8 @@ class Seccion extends StatefulWidget {
       required this.horario,
       required this.cantidad,
       required this.imagen,
-      required this.precio});
+      required this.precio,
+      required this.cant_actual});
 
   final String nombre;
   final String direccion;
@@ -29,6 +30,7 @@ class Seccion extends StatefulWidget {
   final int cantidad;
   final String imagen;
   final int precio;
+  final int cant_actual;
 
   @override
   State<Seccion> createState() => _Seccion();
