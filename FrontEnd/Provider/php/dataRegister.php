@@ -1,11 +1,9 @@
 <?php
     require '../../../backend/Conexion.php';
     class ValidarLogin extends Conexion{
-
         public function ValidarLogin(){
             parent::Conexion();
         }
-    
         public function login($nombre,$password,$telefono, $email,$localidad){
             if($nombre == '' or $password == '' or $telefono == '' or $email == '' or $localidad == '' ){
                 echo json_encode( "validacion registro andando: <br>Usuario: '$nombre'. <br>pass: '.$password'");
@@ -33,8 +31,6 @@
     $telefono =  $_POST['telefono'];
     $email = $_POST['email'];
     $localidad = $_POST['localidad'];
-
     $test = new ValidarLogin;
     $test->login($nombre,$password,$telefono, $email,$localidad)
-
 ?>

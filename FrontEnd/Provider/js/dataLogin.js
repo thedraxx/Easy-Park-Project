@@ -37,6 +37,7 @@ class Person {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 if (data === false) {
                     document.getElementById("error").innerHTML = "Usuario no valido";
                     setTimeout(() => {

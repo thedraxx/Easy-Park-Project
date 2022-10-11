@@ -8,14 +8,14 @@
     box-sizing: border-box;
 }
 
-.form{
+.form {
     background-color: #5F9DF7;
     position: relative;
 }
 
-.botones{
+.botones {
     display: flex;
-    flex:auto;
+    flex: auto;
     width: 100%;
     justify-content: space-around;
     justify-content: center;
@@ -34,12 +34,11 @@
     height: 50px;
 }
 
-.imagenLogo{
+.imagenLogo {
     width: 50px;
     height: 50px;
 }
 
-/* Style the links inside the navigation bar */
 .topnav a {
     float: right;
     color: #000000;
@@ -51,13 +50,11 @@
     width: auto;
 }
 
-/* Change the color of links on hover */
 .topnav a:hover {
     background-color: #ddd;
     color: black;
 }
 
-/* Add a color to the active/current link */
 .topnav a.active {
     background-color: #5F9DF7;
     color: white;
@@ -108,104 +105,65 @@
     padding-top: 200px;
 }
 
-.input-container {
-    width: 90%;
-    height: 50px;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: white;
-    display: block;
-    margin: 15px 0;
-}
-
-.input {
-    display: block;
-    margin: auto;
-    width: 100%;
-    height: 40px;
-    border: 1px solid rgb(76, 76, 76);
-    padding: 10px;
-    background-color: white;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-}
-
-.names {
-    background-color: white;
-    font-size: 20px;
-}
-
-.submit {
+.containerQuienesSomos {
     width: 100%;
     height: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    background-color: rgb(255, 255, 255);
-    list-style: none;
-}
-
-
-.button-create {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border: none;
-    width: 30%;
-    height: 70px;
-    border: 1px solid #5F9DF7;
-    border-radius: 10px;
-    background-color: #ffffff;
-    color: #5F9DF7;
-    font-size: 20px;
+}
+
+.parrafo {
+    width: 70%;
+    margin-top: 20px;
     font-weight: bold;
-    cursor: pointer;
-    margin: 0 auto;
     text-align: center;
-
 }
 
-.button-submit {
+.containerCards {
+    width: 100%;
+    height: 100%;
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     border: none;
-    width: 30%;
-    height: 70px;
-    border: none;
-    border-radius: 10px;
-    background-color: #5F9DF7;
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 0 auto;
+    width: 50%;
+    height: 100%;
+    margin-top: 20px;
+    text-align: center;
 }
 
 
-#error {
-    position: relative;
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    margin-top: 40px;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding: 15px;
+    width: 250px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+    padding: 2px 16px;
+}
+
+.imagenCard {
+    width: 100%;
+    height: 100%;
     display: flex;
-    margin-top: 30px;
-    background-color: rgb(254, 124, 124);
-    color: white;
-    font-size: 25px;
-    font-weight: bold;
- 
+    justify-content: center;
+    align-items: center;
+    border-radius: 500px;
 }
 
-#resultado {
-    position: absolute;
-    display: flex;
-    margin-top: 3vh;
-    color: rgb(255, 255, 255);
-    font-size: 35px;
-    font-weight: bold;
-}
 
 
 @media (max-width: 600px) {
@@ -250,53 +208,67 @@
         align-items: center;
     }
 
-    .submit {
+    /* quienesSomos */
+
+    .containerQuienesSomos {
         width: 100%;
         height: 100%;
-        padding: 10px;
-        margin-top: 15px;
-        background-color: rgb(255, 255, 255);
-        list-style: none;
-    }
-
-
-    .button-create {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         border: none;
-        width: 100%;
-        height: 70px;
-        border: 1px solid #5F9DF7;
-        border-radius: 10px;
-        background-color: #ffffff;
-        color: #5F9DF7;
-        font-size: 20px;
-        font-weight: bold;
-        cursor: pointer;
-        margin: 0 auto;
     }
 
-    .button-submit {
+    .parrafo {
+        width: 100%;
+        margin-top: 20px;
+        font-weight: bold;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .containerCards {
+        width: 100%;
+        height: 100%;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         border: none;
-        width: 100%;
-        height: 70px;
-        border: none;
-        border-radius: 10px;
-        background-color: #5F9DF7;
-        color: white;
-        font-size: 20px;
-        font-weight: bold;
-        cursor: pointer;
-        margin: 0 auto;
+        width: 50%;
+        height: 100%;
+        margin-top: 20px;
+        text-align: center;
     }
 
 
-    .imagenDecoration{
-        display: none;
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        margin-top: 40px;
+        margin-left: 50px;
+        margin-right: 50px;
+        padding: 15px;
+        width: 250px;
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+        padding: 2px 16px;
+    }
+
+    .imagenCard {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 500px;
     }
 
     .imagenLogo{

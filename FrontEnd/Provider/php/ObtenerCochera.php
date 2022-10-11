@@ -1,6 +1,5 @@
 <?php
 require '../../../backend/Conexion.php';
-
     class ObtenerCocheras extends Conexion{
 
         public function ValidarLogin(){
@@ -21,18 +20,10 @@ require '../../../backend/Conexion.php';
                     $array[] = $row;
                 }
                 echo json_encode($array, JSON_NUMERIC_CHECK|JSON_PRETTY_PRINT| JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
-        
-                
         }
     }
 
-
-
-
 $codigo = $_POST['codigo'];
-
 $test = new ObtenerCocheras;
 $test->patente($codigo);
-
-
 ?>

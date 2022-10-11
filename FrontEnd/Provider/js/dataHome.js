@@ -22,16 +22,16 @@ function updateValueCochera(e) {
 }
 
 class Gestion {
-    constructor(token, estado,cocheras) {
+    constructor(token, estado, cocheras) {
         this.token = token;
         this.estado = estado;
         this.cocheras = cocheras;
     }
 
     verificacionCamposVacios() {
-        if (this.token == '' || this.estado == '' || this.cocheras == '') {
+        if (this.token == 0 || this.token.length < 6 || this.token.length > 6) {
             return false;
-        } else {
+        } else if (this.token.length === 6 ){
             return true;
         }
     }
@@ -43,30 +43,34 @@ class Gestion {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
-                if (data != false) {
+                console.log(data);
+                if (data === false){
+                    Swal.fire({
+                        title: 'Error!',
+                        text: `Patente asociada al token no encontrado`, 
+                        imageWidth: 600,
+                        imageHeight: 300,
+                        imageAlt: 'Error!',
+                    })
+                }
+
+                else if ( data == 0 || data == "0" ) {
+                    Swal.fire({
+                        title: 'Ups!',
+                        text: `A ocurrido un error`, 
+                        imageWidth: 600,
+                        imageHeight: 300,
+                        imageAlt: 'Error!',
+                    })
+                }
+
+                else {
                     Swal.fire({
                         title: 'Genial!',
-                        text: `El vehiculo con la patente ${data.patente} ingreso/salio el ${data.ingreso} -  ${data.salida}`,
+                        text: `El estado del estacionamiento ha sido modificado, el vehiculo ${data.patente} a cambiado`,
                         imageWidth: 600,
                         imageHeight: 300,
                         imageAlt: 'Felicidades!',
-                    })
-                } else if (data === false) {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: `El vehiculo con la patente solicitada no se encuentra en el estacionamiento`,
-                        imageWidth: 600,
-                        imageHeight: 300,
-                        imageAlt: 'Error!',
-                    })
-                } if (data === 404) {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: `No hay mas espacio en el estacionamiento`,
-                        imageWidth: 600,
-                        imageHeight: 300,
-                        imageAlt: 'Error!',
                     })
                 }
             })
@@ -83,8 +87,8 @@ window.onload = () => {
     })
         .then(res => res.json())
         .then(data => {
-            data.map( (cochera) => { 
-                return(
+            data.map((cochera) => {
+                return (
                     cocheras.innerHTML += `<option value="${cochera.cod_estac}">${cochera.direccion}</option>`
                 )
             })

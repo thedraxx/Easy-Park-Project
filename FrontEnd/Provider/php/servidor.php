@@ -5,7 +5,6 @@
         public function ValidarLogin(){
             parent::Conexion();
         }
-    
         public function login($usuario, $password){
             if($usuario == '' or $password == '' ){
                 echo json_encode( "validacion andando: <br>Usuario: '$usuario'. <br>pass: '.$password'");
@@ -28,10 +27,9 @@
             }
         }
     }
-
+    
     $usuario =  $_POST['usuario'];
     $password = $_POST['password'];
-
     $test = new ValidarLogin;
     $test->login($usuario,$password)
 ?>

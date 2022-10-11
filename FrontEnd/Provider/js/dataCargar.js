@@ -79,17 +79,17 @@ class CargarEstacionamiento {
 
     cargar() {
         let codigo = localStorage.getItem('codigo');
-
         let datos = new FormData();
-        datos.append('nombre', this.nombre.value);
-        datos.append('plazas', this.plazas.value);
-        datos.append('horario', this.horario.value);
-        datos.append('precio', this.precio.value);
-        datos.append('ciudad', this.ciudad.value);
-        datos.append('provincia', this.provincia.value);  
-        datos.append('calle', this.calle.value);
-        datos.append('numero', this.numero.value);
+        datos.append('nombre', this.nombre);
+        datos.append('plazas', this.plazas);
+        datos.append('horario', this.horario);
+        datos.append('precio', this.precio);
+        datos.append('ciudad', this.ciudad);
+        datos.append('provincia', this.provincia);  
+        datos.append('calle', this.calle);
+        datos.append('numero', this.numero);
         datos.append('codigo', codigo);
+
 
         fetch(url, {
             method: 'POST',
@@ -97,6 +97,7 @@ class CargarEstacionamiento {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 if (data == true) {
                     Swal.fire({
                         title: 'Felicidades!',
