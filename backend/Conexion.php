@@ -3,7 +3,7 @@
     
     class Conexion {
 
-        protected  $conexion_db;
+        protected $conexion_db;
 
         public function Conexion(){
             try{

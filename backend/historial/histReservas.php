@@ -5,7 +5,7 @@ require '../Conexion.php';
 class Historial extends Conexion{
 
     public function Historial(){
-        parent::__construct();
+        parent::Conexion();
     }
 /************************* HISTORIAL DE RESERVAS *******************************/
     public function allReservas(string $tUsuario, int $cod_usuario){

@@ -106,4 +106,25 @@ class PeticionesHttp {
     }
     return respuesta;
   }
+
+  Future<void> CancelarReserva($token) async {
+    String respuesta = " ";
+    try {
+      var url = Uri.parse(
+          "https://tonnish-swivel.000webhostapp.com/estado_estac/newCancelar.php");
+      final response = await http.post(url, body: {
+        'token': $token,
+      });
+
+      if (response.statusCode == 200) {
+        var data = await json.decode(json.encode(response.body));
+        print(data);
+        respuesta = data.toString();
+      } else {
+        print('ERROR CONEXION');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }

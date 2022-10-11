@@ -5,7 +5,7 @@
     class Estacionamiento extends Conexion{
 
         public function Estacionamiento(){
-            parent::__construct();
+            parent::Conexion();
         }
 
         public function get_estacionamientos(){

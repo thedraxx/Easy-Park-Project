@@ -6,7 +6,7 @@
     class EstadoEstac extends Conexion{
 
         public function EstadoEstac(){
-            parent::__construct();
+            parent::Conexion();
         }
 
 

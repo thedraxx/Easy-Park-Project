@@ -96,7 +96,7 @@ class _Seccion extends State<Seccion> {
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w400,
                           )),
-                      Text("Estacionamiento disponibles: ${widget.cantidad}",
+                      Text("Estacionamiento disponibles: ${widget.cant_actual}",
                           style: TextStyle(
                             color: azul,
                             fontSize: 16.0,

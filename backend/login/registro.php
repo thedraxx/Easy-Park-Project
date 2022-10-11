@@ -6,7 +6,7 @@ require '../formatoFecha/crearFecha.php';
 class Registro extends  Conexion{
 
     public function Registro(){
-        parent::__construct();
+        parent::Conexion();
     }
 
     public function IngresarUsuario($nombre,$mail,$localidad,$pass,$tel,$tipoUsuario,$id){
