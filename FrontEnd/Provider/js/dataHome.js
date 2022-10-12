@@ -21,13 +21,17 @@ function updateValueCochera(e) {
     cocheras = e.target.value
 }
 
+
+// Instanciamos la clase
 class Gestion {
+    // El constructor de la clase recibe los datos
     constructor(token, estado, cocheras) {
         this.token = token;
         this.estado = estado;
         this.cocheras = cocheras;
     }
 
+// El metodo verificacionCamposVacios verifica que el token no este vacio ni que sea menor a 6 caracteres o mayor a 6 caracteres
     verificacionCamposVacios() {
         if (this.token == 0 || this.token.length < 6 || this.token.length > 6) {
             return false;
@@ -36,14 +40,16 @@ class Gestion {
         }
     }
 
+    // El metodo enviarDatos envia los datos al servidor por el metodo POST
     gestion(datos) {
         fetch(url, {
             method: 'POST',
             body: datos
         })
+        // Recibimos la respuesta del servidor en json
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // Si la respuesta es false quiere decir que el token no es valido
                 if (data === false){
                     Swal.fire({
                         title: 'Error!',
@@ -54,6 +60,7 @@ class Gestion {
                     })
                 }
 
+                // Si la respuesta es 0 es porque algo a fallado en el servidor
                 else if ( data == 0 || data == "0" ) {
                     Swal.fire({
                         title: 'Ups!',
@@ -64,6 +71,7 @@ class Gestion {
                     })
                 }
 
+                // Si no es ninguno de los anteriores, quiere decir que todo salio bien y se muestra un mensaje de exito
                 else {
                     Swal.fire({
                         title: 'Genial!',
@@ -77,15 +85,21 @@ class Gestion {
     }
 }
 
+// Cuando se carga la pagina, se activa esta funcion 
 window.onload = () => {
+    // Recibimos el codigo del servidor del localStorage
     let codigo = localStorage.getItem('codigo');
+    // Creamos un objeto FormData para enviar los datos
     let datos = new FormData();
+    // Agregamos los datos al objeto FormData
     datos.append('codigo', codigo);
     fetch(url2, {
         method: 'POST',
         body: datos
     })
+    // Recibimos la respuesta del servidor en json
         .then(res => res.json())
+        // Recibimos todas las cocheras asociadas al proveedor y lo mostramos en pantalla
         .then(data => {
             data.map((cochera) => {
                 return (
@@ -96,19 +110,26 @@ window.onload = () => {
 }
 
 
+// Cuando se hace click en submit, se activa esta funcion
 login.onsubmit = (e) => {
     e.preventDefault();
 
+    // Instanciamos la clase
     const gestion = new Gestion(token, estado);
+    // Verificamos que los campos sean validos
     const verificacion = gestion.verificacionCamposVacios();
 
+    // Si devuelve false, significa que hay campos vacios y mandamos una alerta
     if (!verificacion) {
         document.getElementById("error").innerHTML = "Todos los campos son obligatorios";
         setTimeout(() => {
             document.getElementById("error").innerHTML = "";
         }, 1000);
+     // Si devuelve true, significa que los campos estan completos y procedemos a enviar los datos
     } else {
+        // Creamos un objeto FormData para enviar los datos
         var datos = new FormData(login)
+        // Llamamos a la funcion gestion y le pasamos los datos
         gestion.gestion(datos)
     }
 }

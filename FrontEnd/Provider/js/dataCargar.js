@@ -69,6 +69,7 @@ class CargarEstacionamiento {
         this.numero = numero;
     }
 
+    // Verificamos que los campos no esten vacios
     verificacionCamposVacios() {
         if (this.nombre.value == "" || this.plazas.value == "" || this.horario.value == "" || this.precio.value == "" || this.ciudad.value == "" || this.provincia.value == "" || this.calle.value == "" || this.numero.value == "") {
             return false;
@@ -77,27 +78,31 @@ class CargarEstacionamiento {
         }
     }
 
+    // el metodo que se encarga de enviar los datos al servidor
     cargar() {
+        // Recibimos el codigo del proveedor del local storage
         let codigo = localStorage.getItem('codigo');
+        // Creamos un objeto FormData para enviar los datos al servidor
         let datos = new FormData();
         datos.append('nombre', this.nombre);
         datos.append('plazas', this.plazas);
         datos.append('horario', this.horario);
         datos.append('precio', this.precio);
         datos.append('ciudad', this.ciudad);
-        datos.append('provincia', this.provincia);  
+        datos.append('provincia', this.provincia);
         datos.append('calle', this.calle);
         datos.append('numero', this.numero);
         datos.append('codigo', codigo);
 
-
+        // Enviamos los datos al servidor
         fetch(url, {
             method: 'POST',
             body: datos
         })
+            // Recibimos la respuesta del servidor en formato json
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                // Si la respuesta es correcta mostramos un mensaje de exito
                 if (data == true) {
                     Swal.fire({
                         title: 'Felicidades!',
@@ -105,15 +110,27 @@ class CargarEstacionamiento {
                         imageWidth: 600,
                         imageHeight: 300,
                         imageAlt: 'Felicidades!',
-                      })  
+                    })
+                    // Si la respuesta es incorrecta mostramos un mensaje de error
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: `No se pudo cargar el estacionamiento`,
+                        imageWidth: 600,
+                        imageHeight: 300,
+                        imageAlt: 'Error!',
+                    })
                 }
             })
     }
 }
 
+
+// al hacer click en el boton de cargar
 login.onsubmit = (e) => {
     e.preventDefault();
 
+    // instancio la clase 
     const cargarestacionamiento = new CargarEstacionamiento(
         nombre,
         plazas,
@@ -125,13 +142,16 @@ login.onsubmit = (e) => {
         numero
     );
 
+    // verifico que los campos no esten vacios con el metodo verificacionCamposVacios()
     const verificacion = cargarestacionamiento.verificacionCamposVacios();
 
+    // si verificacion es false quiere decir que hay campos vacios, por lo que mandamos un mensaje de alerta
     if (!verificacion) {
         document.getElementById("error").innerHTML = "Todos los campos son obligatorios";
         setTimeout(() => {
             document.getElementById("error").innerHTML = "";
         }, 1000);
+        // Si es true, entonces se ejecuta el metodo de cargar
     } else {
         cargarestacionamiento.cargar();
     }
