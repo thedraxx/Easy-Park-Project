@@ -25,10 +25,9 @@ function updateValueCochera(e) {
 // Instanciamos la clase
 class Gestion {
     // El constructor de la clase recibe los datos
-    constructor(token, estado, cocheras) {
+    constructor(token, estado) {
         this.token = token;
         this.estado = estado;
-        this.cocheras = cocheras;
     }
 
 // El metodo verificacionCamposVacios verifica que el token no este vacio ni que sea menor a 6 caracteres o mayor a 6 caracteres
@@ -41,44 +40,41 @@ class Gestion {
     }
 
     // El metodo enviarDatos envia los datos al servidor por el metodo POST
-    gestion(datos) {
+    gestion() {
+        // Esto no lee bien si es ingreso o salida
+        console.log(this.estado)
+        console.log(this.token)
+            // Creamos un objeto FormData para enviar los datos al servidor
+            let datosEstado = new FormData();
+            datosEstado.append('token', this.token);
+            datosEstado.append('ingreso', this.estado);
         fetch(url, {
             method: 'POST',
-            body: datos
+            body: datosEstado,
+            mode: 'no-cors', // <---
+            cache: 'default',
         })
         // Recibimos la respuesta del servidor en json
-            .then(res => res.json())
+            .then(res => res.text())
             .then(data => {
-                // Si la respuesta es false quiere decir que el token no es valido
-                if (data === false){
+                console.log(data)
+                   // Si la respuesta es correcta mostramos un mensaje de exito
+                   if (data == true  || data == 1 || data == '1') {
                     Swal.fire({
-                        title: 'Error!',
-                        text: `Patente asociada al token no encontrado`, 
-                        imageWidth: 600,
-                        imageHeight: 300,
-                        imageAlt: 'Error!',
-                    })
-                }
-
-                // Si la respuesta es 0 es porque algo a fallado en el servidor
-                else if ( data == 0 || data == "0" ) {
-                    Swal.fire({
-                        title: 'Ups!',
-                        text: `A ocurrido un error`, 
-                        imageWidth: 600,
-                        imageHeight: 300,
-                        imageAlt: 'Error!',
-                    })
-                }
-
-                // Si no es ninguno de los anteriores, quiere decir que todo salio bien y se muestra un mensaje de exito
-                else {
-                    Swal.fire({
-                        title: 'Genial!',
-                        text: `El estado del estacionamiento ha sido modificado, el vehiculo ${data.patente} a cambiado`,
+                        title: 'Felicidades!',
+                        text: `Cambio de estado exitoso`,
                         imageWidth: 600,
                         imageHeight: 300,
                         imageAlt: 'Felicidades!',
+                    })
+                    // Si la respuesta es incorrecta mostramos un mensaje de error
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: `A ocurrido un Error`,
+                        imageWidth: 600,
+                        imageHeight: 300,
+                        imageAlt: 'Error!',
                     })
                 }
             })
@@ -127,10 +123,8 @@ login.onsubmit = (e) => {
         }, 1000);
      // Si devuelve true, significa que los campos estan completos y procedemos a enviar los datos
     } else {
-        // Creamos un objeto FormData para enviar los datos
-        var datos = new FormData(login)
         // Llamamos a la funcion gestion y le pasamos los datos
-        gestion.gestion(datos)
+        gestion.gestion()
     }
 }
 
