@@ -20,7 +20,7 @@ function updateValuePassword(e) {
     password = e.target.value
 }
 function updateValueTelefono(e) {
-    usuario = e.target.value
+    telefono = e.target.value
 }
 function updateValueLocalidad(e) {
     localidad = e.target.value
@@ -32,25 +32,40 @@ class Person {
     constructor(
         nombre,
         password,
-        usuario,
         localidad,
         email,
-        domicilio,
-        plazas) {
+        telefono) {
         this.nombre = nombre;
         this.password = password;
-        this.usuario = usuario;
         this.localidad = localidad;
         this.email = email;
-        this.domicilio = domicilio;
-        this.plazas = plazas;
+        this.telefono = telefono;
     }
 
     // Verifican que los campos sean validos si lo es retorna true sino false
     verificacionCamposVacios() {
-        if (this.nombre === "" || this.password === "" || this.usuario === "" || this.localidad === "" || this.email === "" || this.domicilio === "" || this.plazas === "") {
-            return false;
-        } else {
+        let mayus = new RegExp('^(?=.*[A-Z])');
+        let special = new RegExp('^(?=.*[!@#$&*])');
+        let number = new RegExp('^(?=.*[0-9])');
+        let lower = new RegExp('^(?=.*[a-z])');
+        let length = new RegExp('^(?=.{8,})');
+
+        let mayusBool = mayus.test(this.password);
+        let specialBool = special.test(this.password);
+        let numberBool = number.test(this.password);
+        let lowerBool = lower.test(this.password);
+        let lengthBool = length.test(this.password);
+
+        if (this.password.length < 8 || !mayusBool || !specialBool || !numberBool || !lowerBool || !lengthBool) {
+            console.log("Contraseña no valida");
+            return false;  
+        }
+        else if (this.nombre.length < 3) {
+            console.log("Nombre no valido");
+            return false;  
+        }
+        else {
+            console.log('Todo bien');
             return true
         }
     }
@@ -66,14 +81,23 @@ class Person {
             .then(data => {
                 // Si la respuesta es igual a ERROR NO SE PUDO REGISTRAR muestra un mensaje de error
                 if (data === 'ERROR NO SE PUDO REGISTRAR') {
-                    document.getElementById("error").innerHTML = "ERROR NO SE PUDO REGISTRAR";
+                    document.getElementById("error").innerHTML = "Error de registro";
                     setTimeout(() => {
                         document.getElementById("error").innerHTML = "";
                     }, 3000);
                 }
                 // Si la respuesta es distinta a esos mensaje entonces se registro correctamente y lo envia al Home
                 else {
-                    window.location.href = "http://localhost/Easy-Park/FrontEnd/Provider/pages/Home.html";
+                    Swal.fire({
+                        title: 'Felicidades!',
+                        text: `Proveedor Registrado Correctamente`,
+                        imageWidth: 600,
+                        imageHeight: 300,
+                        imageAlt: 'Error!',
+                    })
+                    setTimeout(() => {
+                        window.location.href = "http://localhost/Easy-Park/FrontEnd/Provider/index.html";
+                    }, 1500);
                 }
             })
     }
