@@ -82,28 +82,33 @@ class CargarEstacionamiento {
     cargar() {
         // Recibimos el codigo del proveedor del local storage
         let codigo = localStorage.getItem('codigo');
+        let imagen = 'https://atrapatuled.es/modules/amazzingblog/views/img/uploads/posts/8/xl/3-5fa074a4d235c.jpg'
         // Creamos un objeto FormData para enviar los datos al servidor
         let datos = new FormData();
         datos.append('nombre', this.nombre);
-        datos.append('plazas', this.plazas);
+        datos.append('cantidad', this.plazas);
         datos.append('horario', this.horario);
         datos.append('precio', this.precio);
         datos.append('ciudad', this.ciudad);
         datos.append('provincia', this.provincia);
         datos.append('calle', this.calle);
         datos.append('numero', this.numero);
-        datos.append('codigo', codigo);
+        datos.append('imagen',imagen);
+        datos.append('cod_prov', codigo);
 
         // Enviamos los datos al servidor
         fetch(url, {
             method: 'POST',
-            body: datos
+            body: datos,
+            mode: 'no-cors', // <---
+            cache: 'default'
         })
             // Recibimos la respuesta del servidor en formato json
-            .then(res => res.json())
+            .then(res => res.text())
             .then(data => {
-                // Si la respuesta es correcta mostramos un mensaje de exito
-                if (data == true) {
+                console.log(data)
+                   // Si la respuesta es correcta mostramos un mensaje de exito
+                   if (data == true  || data == 1 || data == '1') {
                     Swal.fire({
                         title: 'Felicidades!',
                         text: `Estacionamiento cargado correctamente`,

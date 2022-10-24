@@ -1,58 +1,32 @@
 <?php
-require './estado.php';
 class ObtenerPatente
 {
     // Cambiar El Estado
     public function CambiarEstado($estado, $token)
     {
-        $this->estado = $estado;
-        $this->token = $token;
 
-        // Instanciamos la clase EstadoEstac
-        $operacion = new EstadoEstac();
-        // Llamamos al método tipoOperacion enviandole el token y el estado a cambiar
-        $operacion->tipoOperacion($this->token, $this->estado);
-    }
+        $tokenString = strval($token);
+        $estadoString = strval($estado);
 
-    // Motrar Patente
-    public function patente($token)
-    {
-        // Hacemos la conexion a la base de datos
-        $host  = 'bp6nfzavyucdmj07us1w-mysql.services.clever-cloud.com';
-        $user = 'ukfwnbqeu0ysoyct';
-        $pass = 'TljBTzMktwbU4NwhYbj7';
-        $db = 'bp6nfzavyucdmj07us1w';
+        $url = 'https://tonnish-swivel.000webhostapp.com/estado_estac/newOperacion.php';
 
-        $connect = new mysqli("$host", "$user", "$pass", "$db");
-        // Consultamos la patente del usuario
-        $consulta = $connect->query("SELECT * FROM reserva WHERE token = '$token'");
-        $ver = mysqli_num_rows($consulta);
-        // Si es mayor a 0 quiere decir que encontro algo, por lo que procederemos a retornar esos datos
-        if ($ver > 0) {
-            $datos = mysqli_fetch_assoc($consulta);
-            echo json_encode($datos, JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        }
-        // SIno lo encontro entonces quiere decir que no encontro una patente asociada
-        else {
-            echo json_encode(false);
-        }
+        $data = array('token'=>$tokenString,'tipo'=> $estadoString); // PONER 'i'= ingreso  o 's' = salida
+                    
+        $fields_string = http_build_query($data);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string );
+        $data = curl_exec($ch);
+        curl_close($ch);     
     }
 }
 
 //  Recibe los datos del usuario por POST
 $token =  $_POST['token'];
-$estado = $_POST['estado'];
+$estado = $_POST['ingreso'];
 
 // Instancia la clase
 $test = new ObtenerPatente;
 // Llama al metodo CAMBIARESTADO
 $CambiarEstado = $test->CambiarEstado($estado, $token);
-
-// Si la respuesta es distinto a 0 entonces fue exitoso por lo que procedemos a buscar la patente asociada al token
-if ($CambiarEstado !== "0" or $CambiarEstado !== 0) {
-    $test->patente($token);
-}
-//  Sino retornamos un 0 dando a entender que algo salio mal
-else {
-    echo json_encode(0);
-}
