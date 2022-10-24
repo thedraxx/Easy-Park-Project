@@ -18,11 +18,11 @@ PHP: 7
 ```
 MySQL: 2022
 ```
-## ✉️ Contacto
+## ✉️ Contact
 
 Email: cerrano.francisco22@gmail.com
 
-## 🤔 Autor
+## 🤔 Author
 
 👤 **Francisco Cerrano**
 👤 **David Figuerero**
@@ -34,6 +34,6 @@ Email: cerrano.francisco22@gmail.com
 
 - Github David: [David](https://github.com/Davidfi34)
 
-## 📝 Licencia
+## 📝 licence
 
 Copyright © 2022.<br />
