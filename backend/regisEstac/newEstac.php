@@ -3,8 +3,11 @@ require '../api/ubicacion.php';
 require 'EstacRegistro.php';
 
 //CREA NUEVO REGISTRO DE ESTACIONAMIENTO
-if(isset($_POST['calle']) && $_POST['calle'] != " " && isset($_POST['numero']) && $_POST['numero'] != " " && 
-    isset($_POST['ciudad']) && $_POST['ciudad']&& isset($_POST['provincia']) && $_POST['provincia'] != " "){
+if(isset($_POST['cod_prov'])/*&& $_POST['cod_prov'] != " " && isset($_POST['nombre']) && $_POST['nombre'] != " " && isset($_POST['cantidad'])
+    && $_POST['cantidad'] != " " && isset($_POST['calle']) && $_POST['calle'] != " " && isset($_POST['numero']) && $_POST['numero'] != " " && 
+    isset($_POST['ciudad']) && $_POST['ciudad']&& isset($_POST['provincia']) && $_POST['provincia'] != " " 
+    && isset($_POST['horario']) && $_POST['horario'] != " " && isset($_POST['imagen']) && $_POST['imagen'] != " " 
+    && isset($_POST['precio']) && $_POST['precio'] != " "*/){
 
     //ObtenerLatLng("Mendoza","423","Rosario","Santa fe");
     $newLatLng=ObtenerLatLng($_POST['calle'],$_POST['numero'],$_POST['ciudad'],$_POST['provincia']);

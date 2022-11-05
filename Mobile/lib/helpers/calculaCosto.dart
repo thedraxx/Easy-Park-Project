@@ -1,7 +1,7 @@
 //*****CALCULA EL COSTO DE ESTACIOCIONAMIENTO POR MEDIO DE 2 FECHA *******//
 String Costo(String ingreso, String salida, precio) {
-  DateTime Ingreso = DateTime.parse(ingreso);
-  DateTime Salida = DateTime.parse(salida);
+  final DateTime Ingreso = DateTime.parse(ingreso);
+  final DateTime Salida = DateTime.parse(salida);
 
   final difmin = Salida.difference(Ingreso).inMinutes;
 

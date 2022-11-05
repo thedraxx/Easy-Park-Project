@@ -2,15 +2,14 @@ import 'package:easy_park/class/Proveedores.dart';
 import 'package:easy_park/classApi/httpPeticiones.dart';
 import 'package:easy_park/colors/color.dart';
 import 'package:easy_park/helpers/location.dart';
-
+import 'package:easy_park/pages/cuenta.dart';
 import 'package:easy_park/pages/inicio.dart';
 import 'package:easy_park/pages/map.dart';
-import 'package:easy_park/pages/page3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'class/userlocation.dart';
+import 'class/usersData.dart';
 import 'dart:async';
 
 class Home extends StatefulWidget {
@@ -38,7 +37,7 @@ class _HomeState extends State<Home> {
   final pages = [
     const Inicio(),
     const PageMap(),
-    const Page3(),
+    Cuenta(),
   ];
 
   @override
@@ -47,14 +46,14 @@ class _HomeState extends State<Home> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    ProviderLocation = Provider.of<UserLocation>(context);
+    ProviderLocation = Provider.of<userData>(context);
 
     return Scaffold(
         body: pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           elevation: 5,
-          backgroundColor: gris,
-          fixedColor: azul,
+          backgroundColor: claro,
+          fixedColor: azulmedio,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
             BottomNavigationBarItem(
@@ -62,8 +61,8 @@ class _HomeState extends State<Home> {
               label: 'Mapa',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Ajustes',
+              icon: Icon(Icons.person_outline),
+              label: 'cuanta',
             ),
           ],
           currentIndex: _selectedIndex,

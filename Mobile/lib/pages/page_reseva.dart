@@ -1,11 +1,12 @@
-import 'package:easy_park/class/userlocation.dart';
+import 'dart:ffi';
+
+import 'package:easy_park/class/users.dart';
 import 'package:easy_park/classApi/httpPeticiones.dart';
 import 'package:easy_park/colors/color.dart';
 import 'package:easy_park/helpers/calculaCosto.dart';
-import 'package:easy_park/helpers/dateTime_format.dart';
+import 'package:easy_park/helpers/formatoDatetime.dart';
 import 'package:easy_park/helpers/validacion.dart';
 import 'package:easy_park/home.dart';
-import 'package:easy_park/pages/inicio.dart';
 import 'package:easy_park/widgets/verToken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -16,11 +17,13 @@ class PageReserva extends StatefulWidget {
     super.key,
     required this.id_estac,
     required this.nombre,
+    required this.direccion,
     required this.precio,
   });
 
   final String id_estac;
   final String nombre;
+  final String direccion;
   final double precio;
 
   @override
@@ -32,13 +35,11 @@ class _PageReservaState extends State<PageReserva> {
   final IngresoController = TextEditingController();
   final SalidaController = TextEditingController();
   final PatenteController = TextEditingController();
-  String _fechaIngreso = "";
-  String _fechaSalida = "";
   String Ingreso = " ";
   String Salida = " ";
-  String _patente = "";
   late var ProviderUser;
   double total = 0;
+  FocusNode myFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -47,19 +48,20 @@ class _PageReservaState extends State<PageReserva> {
 
   @override
   void dispose() {
+    myFocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    ProviderUser = Provider.of<UserLocation>(context);
+    ProviderUser = Provider.of<User>(context);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_rounded, color: azul)),
+              icon: Icon(Icons.arrow_back_rounded, color: azuloscuro)),
         ),
         body: ListView(
           children: [
@@ -67,26 +69,26 @@ class _PageReservaState extends State<PageReserva> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Container(
-                  margin: EdgeInsets.only(left: 30.0),
+                  margin: const EdgeInsets.only(left: 30.0),
                   child: Text("Reserva ",
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                        color: azul,
+                        color: azuloscuro,
                         fontSize: 23.0,
                         fontFamily: 'Montserrat',
                         letterSpacing: 3.0,
                         fontWeight: FontWeight.w500,
                       )),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Container(
-                  margin: EdgeInsets.only(left: 30.0, bottom: 30.0),
+                  margin: const EdgeInsets.only(left: 30.0, bottom: 30.0),
                   child: Text("${widget.nombre}",
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                        color: azul,
+                        color: azuloscuro,
                         fontSize: 18.0,
                         fontFamily: 'Montserrat',
                         letterSpacing: 0.0,
@@ -100,7 +102,7 @@ class _PageReservaState extends State<PageReserva> {
         ));
   }
 
-  //WIDGET DE RESERVA
+  //***********WIDGET DE RESERVA**************//
   _FormReserba(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -116,10 +118,10 @@ class _PageReservaState extends State<PageReserva> {
                         decoration: BoxDecoration(
                           color: claro,
                           borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color: azulmedio),
                         ),
                         child: TextFormField(
                           enabled: false,
-
                           controller: IngresoController,
                           validator: (value) => ValidaPatente(value!),
                           cursorColor: claro,
@@ -131,11 +133,11 @@ class _PageReservaState extends State<PageReserva> {
                                   left: 15, bottom: 11, top: 14, right: 15),
                               hintText: 'Hora de ingreso',
                               hintStyle: TextStyle(
-                                color: azulclaro,
+                                color: azuloscuro,
                                 fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w100,
+                                fontWeight: FontWeight.w300,
                               ),
-                              labelStyle: TextStyle(color: azul),
+                              labelStyle: TextStyle(color: azuloscuro),
                               suffixIcon: IconButton(
                                   splashRadius: 20,
                                   onPressed: () {},
@@ -154,6 +156,7 @@ class _PageReservaState extends State<PageReserva> {
                         decoration: BoxDecoration(
                           color: claro,
                           borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color: azulmedio),
                         ),
                         child: TextFormField(
                           enabled: false,
@@ -169,35 +172,35 @@ class _PageReservaState extends State<PageReserva> {
                                   left: 15, bottom: 11, top: 14, right: 15),
                               hintText: 'Hora de salida',
                               hintStyle: TextStyle(
-                                color: azulclaro,
+                                color: azuloscuro,
                                 fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w100,
+                                fontWeight: FontWeight.w300,
                               ),
-                              labelStyle: TextStyle(color: azul),
+                              labelStyle: TextStyle(color: azuloscuro),
                               suffixIcon: IconButton(
                                   splashRadius: 20,
                                   onPressed: () {},
                                   icon:
                                       const Icon(Icons.watch_later_outlined))),
-                          //onSaved: (newValue) => _usuario = newValue!,
                         )),
                     onTap: () async {
                       _Calendario("s");
                     },
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Container(
                       width: 300,
                       decoration: BoxDecoration(
                         color: claro,
                         borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: azulmedio),
                       ),
                       child: TextFormField(
+                        focusNode: FocusNode(),
+                        enableInteractiveSelection: false,
                         controller: PatenteController,
                         textCapitalization: TextCapitalization.characters,
-
                         validator: (value) => ValidaPatente(value!),
-                        //keyboardType: TextInputType.emailAddress,
                         cursorColor: claro,
                         decoration: InputDecoration(
                             fillColor: Colors.white,
@@ -207,28 +210,27 @@ class _PageReservaState extends State<PageReserva> {
                                 left: 15, bottom: 11, top: 14, right: 15),
                             hintText: 'Numero de patente',
                             hintStyle: TextStyle(
-                              color: azulclaro,
+                              color: azuloscuro,
                               fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w100,
+                              fontWeight: FontWeight.w300,
                             ),
-                            labelStyle: TextStyle(color: azul),
+                            labelStyle: TextStyle(color: azuloscuro),
                             suffixIcon: IconButton(
                                 splashRadius: 20,
                                 onPressed: () {},
                                 icon: const Icon(Icons.drive_eta_sharp))),
-                        // onSaved: (newValue) => _patente = newValue!,
                       )),
-                  SizedBox(height: 30.0),
+                  const SizedBox(height: 30.0),
                   Container(
-                    margin: EdgeInsets.all(30),
+                    margin: const EdgeInsets.all(30),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           "Total de estadia: ",
                           style: TextStyle(
                             fontSize: 15.0,
-                            color: azulclaro,
+                            color: azuloscuro,
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w300,
                           ),
@@ -237,7 +239,7 @@ class _PageReservaState extends State<PageReserva> {
                           "\$ $total",
                           style: TextStyle(
                             fontSize: 20.0,
-                            color: azulclaro,
+                            color: azuloscuro,
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w600,
                           ),
@@ -257,7 +259,7 @@ class _PageReservaState extends State<PageReserva> {
 
                           //**************CREAR RESERVA*********************/
                           var token = await PeticionesHttp().EnviarReserva(
-                              ProviderUser.Userid.toString(),
+                              ProviderUser.getId.toString(),
                               widget.id_estac,
                               PatenteController.text,
                               Ingreso,
@@ -269,23 +271,22 @@ class _PageReservaState extends State<PageReserva> {
                                 MaterialPageRoute(
                                     builder: (context) => const Home()));
 
-                            displayBottomSheet(context, token);
-                          } // /*_AlertReserva(token);*/
-
+                            displayBottomSheet(context, token, widget.direccion,
+                                Formato(DateTime.parse(Ingreso)), true);
+                          }
                         } else {
-                          print("faltan datos");
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             backgroundColor: naranja,
                             elevation: 10.0,
                             content: Text(
                               'Datos incompletos',
-                              style: TextStyle(color: azul),
+                              style: TextStyle(color: azuloscuro),
                             ),
                             duration: const Duration(seconds: 1),
                           ));
                         }
                       },
-                      color: azul,
+                      color: azuloscuro,
                       child: Text('Confirmar', style: TextStyle(color: claro)),
                     ),
                   ),
@@ -296,9 +297,14 @@ class _PageReservaState extends State<PageReserva> {
     );
   }
 
-  void _Calendario(tipo) {
-    print(IngresoController.text);
+  Future<void> _actualizar() async {
+    setState(() {});
 
+    // return Future.delayed(duracion);
+  }
+
+//************* SELECCION DE HORA ******************/
+  void _Calendario(tipo) {
     DatePicker.showDateTimePicker(context,
         showTitleActions: true,
         minTime: IngresoController.text.isNotEmpty
@@ -330,134 +336,4 @@ class _PageReservaState extends State<PageReserva> {
             : DateTime.now(),
         locale: LocaleType.es);
   }
-
-  /*Future<dynamic> _AlertReserva(token) {
-    final Element = showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Column(
-            children: [
-              const SizedBox(
-                height: 30.0,
-              ),
-              const Text("Token"),
-              const SizedBox(
-                height: 10.0,
-              ),
-              Center(
-                child: Text(
-                  token,
-                  style: TextStyle(
-                    color: azul,
-                    fontSize: 30.0,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 30.0,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text("Ingreso: ${Ingreso}hs",
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w300,
-                      )),
-                  Text("Salida: ${Salida}hs",
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w300,
-                      )),
-                ],
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text("Cancelar reserva",
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.red,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                  )),
-              onPressed: () async {
-                //Navigator.of(context).pop();
-                var cancelacion = await PeticionesHttp().CancelarReserva(token);
-                print("cancelada");
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Home()));
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () {
-                //Navigator.of(context).pop();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Home()));
-              },
-            ),
-          ],
-        );
-      },
-    );
-    return Element;
-  }*/
-
-/*
-  void displayBottomSheet(BuildContext context, token) {
-    showModalBottomSheet(
-        elevation: 20.0,
-        context: context,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(20),
-          ),
-        ),
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        builder: (ctx) {
-          return Container(
-            height: MediaQuery.of(context).size.height * 0.4,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text('TOKEN',
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w300,
-                          color: azul)),
-                  //
-                  Text(token,
-                      style: TextStyle(
-                          fontSize: 35.0,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          color: azul)),
-                  const SizedBox(height: 10.0),
-                  ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(15.0)),
-                    child: MaterialButton(
-                      minWidth: 100.0,
-                      height: 50.0,
-                      onPressed: () {},
-                      color: naranja,
-                      child: Text('Cancelar Reserva',
-                          style: TextStyle(color: azul)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }*/
 }

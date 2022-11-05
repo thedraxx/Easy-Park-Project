@@ -1,15 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:easy_park/class/Proveedores.dart';
-import 'package:easy_park/class/userlocation.dart';
+import 'package:easy_park/class/usersData.dart';
 import 'package:easy_park/classApi/httpPeticiones.dart';
 import 'package:easy_park/colors/color.dart';
 import 'package:easy_park/helpers/location.dart';
-import 'package:easy_park/widgets/list_Prov.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +22,12 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
   late var ProviderLocation;
   late LatLng userLocation;
   late Future<List<Proveedores>> futureProv;
+  late int _idEstac;
+  String _horario = "";
+  late double _latEstac;
+  late double _longEstac;
+  late int _precio;
+  late int _cantActual;
   String _nombre = "";
   String _direccion = "";
   String _imagen =
@@ -78,7 +80,7 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    ProviderLocation = Provider.of<UserLocation>(context);
+    ProviderLocation = Provider.of<userData>(context);
     userLocation = ProviderLocation.UserPosition;
 
     return Scaffold(
@@ -95,7 +97,7 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
                     options: MapOptions(
                       minZoom: 5,
                       maxZoom: 18,
-                      center: userLocation, // userLocation,
+                      center: userLocation,
                       zoom: controllerZoom,
                     ),
                     layers: [
@@ -141,15 +143,15 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
                     child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.wifi_off, size: 40.0, color: azul),
+                    Icon(Icons.wifi_off, size: 40.0, color: azuloscuro),
                     Text("sin conexion",
-                        style: TextStyle(color: azul, fontSize: 15)),
+                        style: TextStyle(color: azuloscuro, fontSize: 15)),
                   ],
                 ));
               }
               return Center(
                 child: CircularProgressIndicator(
-                    backgroundColor: azulclaro, color: claro),
+                    backgroundColor: azulClaro, color: azulmedio),
               );
             }),
       ),
@@ -161,9 +163,10 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
               _hide = 0;
               initializeLocationAndSave(_NewLocation);
             },
+            heroTag: 'contact',
             tooltip: 'Posicion actual',
-            backgroundColor: gris,
-            child: Icon(Icons.person_pin_circle_rounded, color: azul),
+            backgroundColor: claro,
+            child: Icon(Icons.person_pin_circle_rounded, color: azuloscuro),
           ),
           const SizedBox(
             height: 5.0,
@@ -176,7 +179,8 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
               });
             },
             tooltip: 'center',
-            backgroundColor: azul,
+            heroTag: 'contact',
+            backgroundColor: azuloscuro,
             child: const Icon(Icons.center_focus_strong),
           ),
         ],
@@ -194,7 +198,6 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
       //margin: const EdgeInsets.all(10),
       duration: const Duration(milliseconds: 200),
       child: InkWell(
-        onTap: () {},
         child: Card(
             elevation: 20.0,
             shape: const RoundedRectangleBorder(
@@ -223,7 +226,7 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
                     fontSize: 15.0,
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.bold,
-                    color: azul,
+                    color: azuloscuro,
                   ),
                 ),
                 subtitle: Text(
@@ -232,8 +235,8 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
                   style: TextStyle(
                     fontSize: 14.0,
                     fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w300,
-                    color: azul,
+                    fontWeight: FontWeight.w400,
+                    color: azuloscuro,
                   ),
                 ))),
       ),
@@ -248,7 +251,7 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
 //**********OBTIENE POSICION ACTUAL Y RE DIBUJA WIDGET**********//
   Future<void> _NewLocation(currentPosition) async {
     ProviderLocation.position = await currentPosition;
-    print("LA POSITION ES $currentPosition");
+    //print("LA POSITION ES $currentPosition");
     _animatedMapMove(currentPosition, 16.0, false);
   }
 
@@ -266,6 +269,12 @@ class _PageMapState extends State<PageMap> with TickerProviderStateMixin {
             //print("${snaphot[i].nombre}");
             _center(LatLng(snaphot[i].latitud, snaphot[i].longitud));
             setState(() {
+              _idEstac = snaphot[i].cod_estac;
+              _latEstac = snaphot[i].latitud;
+              _longEstac = snaphot[i].longitud;
+              _horario = snaphot[i].horario;
+              _precio = snaphot[i].precio;
+              _cantActual = snaphot[i].cant_actual;
               _nombre = snaphot[i].nombre;
               _direccion = snaphot[i].direccion;
               _imagen = snaphot[i].imagen;

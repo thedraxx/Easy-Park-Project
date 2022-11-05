@@ -1,4 +1,5 @@
 import 'package:easy_park/class/Proveedores.dart';
+import 'package:easy_park/class/all_Reservas.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -9,6 +10,8 @@ class PeticionesHttp {
     final response = await http.get(Uri.parse(
         'https://tonnish-swivel.000webhostapp.com/estacionamientos/apiEstac.php'));
     if (response.statusCode == 200) {
+      //var data = await json.decode(json.encode(response.body));
+      //print(data);
       return proveedoresFromJson(response.body);
     } else {
       throw Exception('Error en carga de perticion');
@@ -27,11 +30,9 @@ class PeticionesHttp {
         'pass': pass,
         'tipo': "c"
       }).timeout(const Duration(seconds: 90));
-
-      //var data = await json.decode(json.encode(response.body));
       var data = await jsonDecode(response.body);
-      //EJECUTA FUNCION - GUARDAR ID USUARIO
-      _User(data['cod_cliente'].toString());
+      //EJECUTA FUNCION - GUARDAR OBJ USUARIO
+      _User(data);
 
       if (response.body != '0') {
         validador = true;
@@ -125,6 +126,19 @@ class PeticionesHttp {
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+//********************** OBTENER TODAS LAS RESERVAS ***************************//
+  Future<List<Reservas>> fetchReservas(cod_cliente) async {
+    var url = Uri.parse(
+        'https://tonnish-swivel.000webhostapp.com/historial/newHistorial.php');
+    final response = await http.post(url,
+        body: {'usuario': 'c', 'cod_usuario': cod_cliente.toString()});
+    if (response.statusCode == 200) {
+      return reservasFromJson(response.body);
+    } else {
+      throw Exception('Error en carga de perticion');
     }
   }
 }

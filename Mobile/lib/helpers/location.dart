@@ -31,9 +31,7 @@ Future<void> initializeLocationAndSave(Function newLocation) async {
   return newLocation(currentPosition);
 }
 
-
 /*
-
 NOTICICAR CAMBIOS DE POSICION 
 void update() {
     location.onLocationChanged.listen((LocationData currentLocation) {

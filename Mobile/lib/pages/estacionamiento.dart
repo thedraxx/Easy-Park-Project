@@ -1,25 +1,25 @@
 import 'package:easy_park/colors/color.dart';
-
 import 'package:easy_park/pages/page_reseva.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 //DESCRIPCION DE PROVEEDOR SELECCIONADO
+
 class Seccion extends StatefulWidget {
   const Seccion(
-      {super.key,
+      {Key? key,
       required this.nombre,
       required this.direccion,
       required this.id,
       required this.latitud,
       required this.longitud,
       required this.horario,
-      required this.cantidad,
+      // required this.cantidad,
       required this.imagen,
       required this.precio,
-      required this.cant_actual});
+      required this.cant_actual})
+      : super(key: key);
 
   final String nombre;
   final String direccion;
@@ -27,7 +27,7 @@ class Seccion extends StatefulWidget {
   final double latitud;
   final double longitud;
   final String horario;
-  final int cantidad;
+//  final int cantidad;
   final String imagen;
   final int precio;
   final int cant_actual;
@@ -42,11 +42,11 @@ class _Seccion extends State<Seccion> {
     return Scaffold(
       body: CustomScrollView(slivers: <Widget>[
         SliverAppBar(
-          backgroundColor: azul,
+          backgroundColor: azuloscuro,
           expandedHeight: 150.0,
           flexibleSpace: FlexibleSpaceBar(
               title: Text("${widget.nombre}",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
                     fontFamily: 'Montserrat',
@@ -67,7 +67,7 @@ class _Seccion extends State<Seccion> {
                     padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                     child: Text("${widget.nombre}",
                         style: TextStyle(
-                          color: azul,
+                          color: azuloscuro,
                           fontSize: 22.0,
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.bold,
@@ -75,7 +75,7 @@ class _Seccion extends State<Seccion> {
                   ),
                   subtitle: Text("${widget.direccion}",
                       style: TextStyle(
-                        color: azul,
+                        color: azuloscuro,
                         fontSize: 18.0,
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w400,
@@ -91,21 +91,21 @@ class _Seccion extends State<Seccion> {
                     children: [
                       Text("Abierto: ${widget.horario}",
                           style: TextStyle(
-                            color: azul,
+                            color: azuloscuro,
                             fontSize: 16.0,
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w400,
                           )),
                       Text("Estacionamiento disponibles: ${widget.cant_actual}",
                           style: TextStyle(
-                            color: azul,
+                            color: azuloscuro,
                             fontSize: 16.0,
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w400,
                           )),
                       Text("Estadia por hora: \$${widget.precio}",
                           style: TextStyle(
-                            color: azul,
+                            color: azuloscuro,
                             fontSize: 16.0,
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w400,
@@ -179,17 +179,29 @@ class _Seccion extends State<Seccion> {
       ]),
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.check),
-        backgroundColor: azul,
+        backgroundColor: azuloscuro,
         label: const Text('Reservar'),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => PageReserva(
-                    id_estac: widget.id.toString(),
-                    nombre: widget.nombre,
-                    precio: double.parse(widget.precio.toString()))),
-          );
+          widget.cant_actual != 0
+              ? Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PageReserva(
+                            id_estac: widget.id.toString(),
+                            nombre: widget.nombre,
+                            precio: double.parse(widget.precio.toString()),
+                            direccion: widget.direccion,
+                          )),
+                )
+              : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  backgroundColor: naranja,
+                  elevation: 10.0,
+                  content: Text(
+                    'Sin disponibilidad',
+                    style: TextStyle(color: azuloscuro),
+                  ),
+                  duration: const Duration(seconds: 1),
+                ));
         },
       ),
     );

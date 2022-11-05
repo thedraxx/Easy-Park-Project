@@ -12,71 +12,60 @@ class Boton_cat extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        /* Container(
-            width: 400,
-            margin: const EdgeInsets.all(20.0),
-            child: const Text(
-              "Tipos de vehiculos",
-              style: TextStyle(
-                fontSize: 18.0,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.bold,
-                color: Colors.grey,
-              ),
-            )),*/
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             InkWell(
               borderRadius: BorderRadius.circular(15),
-              splashColor: azul.withOpacity(0.5),
-              highlightColor: azul.withOpacity(0.5),
+              splashColor: azuloscuro.withOpacity(0.5),
+              highlightColor: azuloscuro.withOpacity(0.5),
               onTap: () {},
               child: Container(
                 height: 60,
                 width: 60,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15), color: claro),
-                child: Icon(Icons.car_repair_rounded, color: azul, size: 28),
+                child:
+                    Icon(Icons.car_repair_rounded, color: azuloscuro, size: 28),
               ),
             ),
             InkWell(
               borderRadius: BorderRadius.circular(15),
-              splashColor: azul.withOpacity(0.5),
-              highlightColor: azul.withOpacity(0.5),
+              splashColor: azuloscuro.withOpacity(0.5),
+              highlightColor: azuloscuro.withOpacity(0.5),
               onTap: () {},
               child: Container(
                 height: 60,
                 width: 60,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15), color: claro),
-                child: Icon(Icons.fire_truck, color: azul, size: 28),
+                child: Icon(Icons.fire_truck, color: azuloscuro, size: 28),
               ),
             ),
             InkWell(
               borderRadius: BorderRadius.circular(15),
-              splashColor: azul.withOpacity(0.5),
-              highlightColor: azul.withOpacity(0.5),
+              splashColor: azuloscuro.withOpacity(0.5),
+              highlightColor: azuloscuro.withOpacity(0.5),
               onTap: () {},
               child: Container(
                 height: 60,
                 width: 60,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15), color: claro),
-                child: Icon(Icons.motorcycle, color: azul, size: 28),
+                child: Icon(Icons.motorcycle, color: azuloscuro, size: 28),
               ),
             ),
             InkWell(
               borderRadius: BorderRadius.circular(15),
-              splashColor: azul.withOpacity(0.5),
-              highlightColor: azul.withOpacity(0.5),
+              splashColor: azuloscuro.withOpacity(0.5),
+              highlightColor: azuloscuro.withOpacity(0.5),
               onTap: () {},
               child: Container(
                 height: 60,
                 width: 60,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15), color: claro),
-                child: Icon(Icons.pedal_bike, color: azul, size: 28),
+                child: Icon(Icons.pedal_bike, color: azuloscuro, size: 28),
               ),
             ),
           ],
