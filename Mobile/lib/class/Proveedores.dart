@@ -17,7 +17,8 @@ class Proveedores {
       required this.nombre,
       required this.cantidad,
       required this.imagen,
-      required this.precio});
+      required this.precio,
+      required this.cant_actual});
 
   final int cod_estac;
   final int cod_proveedor;
@@ -29,18 +30,21 @@ class Proveedores {
   final int cantidad;
   final String imagen;
   final int precio;
+  final int cant_actual;
 
   factory Proveedores.fromJson(Map<String, dynamic> json) => Proveedores(
-      cod_estac: json["cod_estac"],
-      cod_proveedor: json["cod_proveedor"],
-      direccion: json["direccion"],
-      latitud: json["latitud"],
-      longitud: json["longitud"],
-      horario: json["horario"],
-      nombre: json["nombre"],
-      cantidad: json["cantidad"],
-      imagen: json["imagen"],
-      precio: json["precio"]);
+        cod_estac: json["cod_estac"],
+        cod_proveedor: json["cod_proveedor"],
+        direccion: json["direccion"],
+        latitud: json["latitud"],
+        longitud: json["longitud"],
+        horario: json["horario"],
+        nombre: json["nombre"],
+        cantidad: json["cantidad"],
+        imagen: json["imagen"],
+        precio: json["precio"],
+        cant_actual: json["cant_actual"],
+      );
 
   Map<String, dynamic> toJson() => {
         "cod_estac": cod_estac,
@@ -52,6 +56,7 @@ class Proveedores {
         "nombre": nombre,
         "cantidad": cantidad,
         "imagen": imagen,
-        "precio": precio
+        "precio": precio,
+        "cant_actual": cant_actual,
       };
 }

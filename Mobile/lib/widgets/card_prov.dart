@@ -3,18 +3,20 @@ import 'package:easy_park/pages/view.dart';
 import 'package:flutter/material.dart';
 
 class Card_Prov extends StatefulWidget {
-  const Card_Prov(
-      {super.key,
-      required this.nombre,
-      required this.direccion,
-      required this.id,
-      required this.latitud,
-      required this.longitud,
-      required this.distancia,
-      required this.horario,
-      required this.cantidad,
-      required this.imagen,
-      required this.precio});
+  const Card_Prov({
+    super.key,
+    required this.nombre,
+    required this.direccion,
+    required this.id,
+    required this.latitud,
+    required this.longitud,
+    required this.distancia,
+    required this.horario,
+    required this.cantidad,
+    required this.imagen,
+    required this.precio,
+    required this.cant_actual,
+  });
 
   final String nombre;
   final String direccion;
@@ -26,6 +28,7 @@ class Card_Prov extends StatefulWidget {
   final int cantidad;
   final String imagen;
   final int precio;
+  final int cant_actual;
 
   @override
   State<Card_Prov> createState() => _Card_ProvState();
@@ -38,15 +41,17 @@ class _Card_ProvState extends State<Card_Prov> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => Seccion(
-                id: widget.id,
-                nombre: widget.nombre,
-                direccion: widget.direccion,
-                latitud: widget.latitud,
-                longitud: widget.longitud,
-                horario: widget.horario,
-                cantidad: widget.cantidad,
-                imagen: widget.imagen,
-                precio: widget.precio)));
+                  id: widget.id,
+                  nombre: widget.nombre,
+                  direccion: widget.direccion,
+                  latitud: widget.latitud,
+                  longitud: widget.longitud,
+                  horario: widget.horario,
+                  cantidad: widget.cantidad,
+                  imagen: widget.imagen,
+                  precio: widget.precio,
+                  cant_actual: widget.cant_actual,
+                )));
       },
       child: SizedBox(
         height: 130,
@@ -109,28 +114,43 @@ class _Card_ProvState extends State<Card_Prov> {
                             ),
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "\$${widget.precio}",
-                              style: TextStyle(
-                                fontSize: 13.0,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold,
-                                color: azulclaro,
-                              ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 15.0),
+                          child: Text(
+                            "${widget.cant_actual} disponibles",
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              color: azulclaro,
                             ),
-                            Text(
-                              " x hora",
-                              style: TextStyle(
-                                fontSize: 13.0,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w300,
-                                color: azulclaro,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "\$${widget.precio}",
+                                style: TextStyle(
+                                  fontSize: 13.0,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  color: azulclaro,
+                                ),
                               ),
-                            ),
-                          ],
+                              Text(
+                                " x hora",
+                                style: TextStyle(
+                                  fontSize: 13.0,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.w300,
+                                  color: azulclaro,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

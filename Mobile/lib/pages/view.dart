@@ -18,7 +18,8 @@ class Seccion extends StatefulWidget {
       required this.horario,
       required this.cantidad,
       required this.imagen,
-      required this.precio});
+      required this.precio,
+      required this.cant_actual});
 
   final String nombre;
   final String direccion;
@@ -29,6 +30,7 @@ class Seccion extends StatefulWidget {
   final int cantidad;
   final String imagen;
   final int precio;
+  final int cant_actual;
 
   @override
   State<Seccion> createState() => _Seccion();
@@ -94,7 +96,7 @@ class _Seccion extends State<Seccion> {
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w400,
                           )),
-                      Text("Estacionamiento disponibles: ${widget.cantidad}",
+                      Text("Estacionamiento disponibles: ${widget.cant_actual}",
                           style: TextStyle(
                             color: azul,
                             fontSize: 16.0,

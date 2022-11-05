@@ -16,7 +16,8 @@ OrdenaLista(snapshot, mylat, mylng) {
           mylat, mylng, snapshot.data[i].latitud, snapshot.data[i].longitud),
       "precio": snapshot.data[i].precio,
       "cantidad": snapshot.data[i].cantidad,
-      "imagen": snapshot.data[i].imagen
+      "imagen": snapshot.data[i].imagen,
+      "cant_actual": snapshot.data[i].cant_actual,
     };
     NuevaLista.add(nuevodato);
   }

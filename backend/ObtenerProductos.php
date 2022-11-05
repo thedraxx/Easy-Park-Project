@@ -5,11 +5,8 @@
 
         public function DevuelveProductos(){
 
-            parent::__construct();
-
+            parent::Conexion();
         }
-
-        
         public function get_productos(){
 
             $resultado = $this->conexion_db-> query('SELECT * FROM prov_estac');

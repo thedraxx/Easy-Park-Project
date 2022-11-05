@@ -4,6 +4,9 @@ import 'package:easy_park/colors/color.dart';
 import 'package:easy_park/helpers/calculaCosto.dart';
 import 'package:easy_park/helpers/dateTime_format.dart';
 import 'package:easy_park/helpers/validacion.dart';
+import 'package:easy_park/home.dart';
+import 'package:easy_park/pages/inicio.dart';
+import 'package:easy_park/widgets/verToken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
@@ -40,6 +43,11 @@ class _PageReservaState extends State<PageReserva> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -247,7 +255,7 @@ class _PageReservaState extends State<PageReserva> {
                         if (form!.validate()) {
                           form.save();
 
-                          //CREAR RESERVA
+                          //**************CREAR RESERVA*********************/
                           var token = await PeticionesHttp().EnviarReserva(
                               ProviderUser.Userid.toString(),
                               widget.id_estac,
@@ -255,7 +263,15 @@ class _PageReservaState extends State<PageReserva> {
                               Ingreso,
                               Salida);
 
-                          if (token != "0") _AlertReserva(token);
+                          if (token != "0") {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Home()));
+
+                            displayBottomSheet(context, token);
+                          } // /*_AlertReserva(token);*/
+
                         } else {
                           print("faltan datos");
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -315,8 +331,9 @@ class _PageReservaState extends State<PageReserva> {
         locale: LocaleType.es);
   }
 
-  Future<dynamic> _AlertReserva(token) {
+  /*Future<dynamic> _AlertReserva(token) {
     final Element = showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -371,14 +388,20 @@ class _PageReservaState extends State<PageReserva> {
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.bold,
                   )),
-              onPressed: () {
-                Navigator.of(context).pop();
+              onPressed: () async {
+                //Navigator.of(context).pop();
+                var cancelacion = await PeticionesHttp().CancelarReserva(token);
+                print("cancelada");
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Home()));
               },
             ),
             IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                Navigator.of(context).pop();
+                //Navigator.of(context).pop();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Home()));
               },
             ),
           ],
@@ -386,5 +409,55 @@ class _PageReservaState extends State<PageReserva> {
       },
     );
     return Element;
-  }
+  }*/
+
+/*
+  void displayBottomSheet(BuildContext context, token) {
+    showModalBottomSheet(
+        elevation: 20.0,
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20),
+          ),
+        ),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        builder: (ctx) {
+          return Container(
+            height: MediaQuery.of(context).size.height * 0.4,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text('TOKEN',
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w300,
+                          color: azul)),
+                  //
+                  Text(token,
+                      style: TextStyle(
+                          fontSize: 35.0,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                          color: azul)),
+                  const SizedBox(height: 10.0),
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+                    child: MaterialButton(
+                      minWidth: 100.0,
+                      height: 50.0,
+                      onPressed: () {},
+                      color: naranja,
+                      child: Text('Cancelar Reserva',
+                          style: TextStyle(color: azul)),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }*/
 }

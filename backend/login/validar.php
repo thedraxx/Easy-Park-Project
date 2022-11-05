@@ -5,7 +5,7 @@ require '../Conexion.php';
 class ValidarLogin extends Conexion{
 
     public function ValidarLogin(){
-        parent::__construct();
+        parent::Conexion();
     }
 
     public function login($mail,$pass,$tipoUsuario){
