@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="stylesheet" href="../styles/QuienesSomos.css" />
+    <title>Formulario</title>
+  </head>
+  <body>
+    <!-- Navbar o barra de navegacion -->
+    <div class="topnav">
+      <h3 class="logo">Easy Park</h3>
+      <img src="../assets/logo.png" alt="logo" class="imagenLogo" />
+      <a class="active" href="QuienesSomos.html">Quienes Somos</a>
+      <a href="Contacto.html">Contacto</a>
+      <a href="ComoSeUsa.html">Como se usa?</a>
+    </div>
+
+    <!-- Formulario -->
+    <form class="login" id="login" method="post">
+      <fieldset class="form">
+        <ul class="container-input">
+          <legend class="bienvenido">Quienes Somos?</legend>
+          <div class="containerQuienesSomos">
+            <p class="parrafo animate__animated animate__fadeIn">
+              Somos un grupo de estudiantes de la carrera de Desarrollo de Software dictado 
+              en la Escuela Suoerior de Comercio Justo Jose de Urquiza, en la ciudad de
+              Rosario, que se dedica a la creación de software para la
+              administración de parqueos.
+
+
+            <div class="containerCards">
+              <div class="card parrafo animate__animated animate__backInLeft">
+                <img src="../assets/man.jpg" alt="logo" class="imagenCard" />
+                <div class="container">
+                  <h4><b>Figuerero David</b></h4>
+                  <p>Des. Mobile y backend </p>
+                </div>
+              </div>
+
+              <div class="card card parrafo animate__animated animate__backInRight">
+                <img src="../assets/man2.jpg" alt="logo" class="imagenCard" />
+                <div class="container">
+                  <h4><b>Francisco Cerrano</b></h4>
+                  <p>Des. Frontend y Backend</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ul>
+      </fieldset>
+    </form>
+    <script async type="text/javascript" src="js/dataLogin.js"></script>
+  </body>
+</html>

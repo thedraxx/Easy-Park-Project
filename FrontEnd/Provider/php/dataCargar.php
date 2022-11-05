@@ -1,68 +1,7 @@
 <?php
-require '../../../backend/Conexion.php';
-require '../../../backend/api/ubicacion.php';
-    class CargarVehiculo extends Conexion{
+class CargarVehiculo{
 
-        public function ValidarLogin(){
-            parent::Conexion();
-        }
-
-        public function patente(    
-            $nombre,
-            $plazas,
-            $horario,
-            $precio,
-            $ciudad,
-            $provincia,
-            $calle,
-            $numero,
-            $codigo,
-        ){
-
-            if($nombre == '' or $plazas == '' or $horario == '' or $precio == '' or $codigo == ''){
-                echo json_encode( "validacion registro andando");
-            }else{
-                $host  ='bp6nfzavyucdmj07us1w-mysql.services.clever-cloud.com';
-                $user ='ukfwnbqeu0ysoyct';
-                $pass = 'TljBTzMktwbU4NwhYbj7';
-                $db = 'bp6nfzavyucdmj07us1w';
-
-                $connect = new mysqli("$host","$user","$pass","$db");
-
-                $lat = ObtenerLatLng( $calle, $numero, $ciudad, $provincia);
-                   
-                $latitud = $lat[0];
-                $longitud = $lat[1];
-
-                $direccion = $calle .' '. $numero;
-
-                $newEstacionamiento = $connect -> query("INSERT INTO prov_estac(`cod_estac`, `cod_proveedor`, `direccion`, `latitud`, `longitud`, `horario`, `nombre`, `cantidad`, `imagen`,`fecha_inscripcion`,`precio`)
-                VALUES (NULL, $codigo,'$direccion',$latitud,$longitud,'$horario','$nombre',$plazas,'https://atrapatuled.es/modules/amazzingblog/views/img/uploads/posts/8/xl/3-5fa074a4d235c.jpg',CURDATE(),$precio)");
-                if($newEstacionamiento === TRUE){
-                    echo json_encode(true);
-                } else {
-                    echo json_encode(false);
-                }
-            }
-        }
-    }
-
-
-
-$nombre = $_POST['nombre'];
-$plazas = $_POST['plazas'];
-$horario = $_POST['horario'];
-$precio = $_POST['precio'];
-$ciudad = $_POST['ciudad'];
-$provincia = $_POST['provincia'];
-$calle = $_POST['calle'];
-$numero = $_POST['numero'];
-$codigo = $_POST['codigo'];
-
-
-
-$test = new CargarVehiculo;
-$test->patente(
+    public function RegistrarEstacionamiento(
     $nombre,
     $plazas,
     $horario,
@@ -71,8 +10,69 @@ $test->patente(
     $provincia,
     $calle,
     $numero,
-    $codigo,
+    $codigo
+    ){
+        $ciudadString = strval($ciudad);
+        $provinciaString = strval($provincia);
+        $calleString = strval($calle);
+        $nombreString = strval($nombre);
+        $horarioString = strval($horario);
+        $numeroInt = intval($numero);
+        $plazasInt = intval($plazas);
+        $precioInt = intval($precio);
+        $codigoInt = intval($codigo);
+        
+
+        $url = 'https://tonnish-swivel.000webhostapp.com/regisEstac/newEstac.php';
+
+        $data = array( 'calle'=> $calleString, 
+                    'numero'=> $numeroInt,
+                    'ciudad' => $ciudadString,
+                    'provincia' => $provinciaString, 
+                    'cod_prov' => $codigoInt,
+                    'nombre' => $nombreString,
+                    'horario' => $horarioString,
+                    'cantidad' => $plazasInt,
+                    'imagen' =>'https://www.clarin.com/img/2021/03/09/xiW_3rJCs_1200x630__1.jpg',
+                    'precio' => $precioInt
+                 );
+
+                 $fields_string = http_build_query($data);
+                 $ch = curl_init();
+                 curl_setopt($ch, CURLOPT_URL, $url);
+                 curl_setopt($ch, CURLOPT_POST, 1);
+                 curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string );
+                 $data = curl_exec($ch);
+                 curl_close($ch);
+
+        
+    }
+
+}
+
+
+// Recibimos los datos en POST
+$nombre = $_POST['nombre'];
+$plazas = $_POST['cantidad'];
+$horario = $_POST['horario'];
+$precio = $_POST['precio'];
+$ciudad = $_POST['ciudad'];
+$provincia = $_POST['provincia'];
+$calle = $_POST['calle'];
+$numero = $_POST['numero'];
+$codigo = $_POST['cod_prov'];
+
+// Instanciamos la clase CargarVehiculo
+$test = new CargarVehiculo;
+// Ejecutamos el metodo patente
+$registrarestacionamiento = $test->RegistrarEstacionamiento(
+$nombre,
+$plazas,
+$horario,
+$precio,
+$ciudad,
+$provincia,
+$calle,
+$numero,
+$codigo,
 );
-
-
-?>
