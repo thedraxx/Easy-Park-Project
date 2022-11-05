@@ -69,6 +69,7 @@ class CargarEstacionamiento {
         this.numero = numero;
     }
 
+    // Verificamos que los campos no esten vacios
     verificacionCamposVacios() {
         if (this.nombre.value == "" || this.plazas.value == "" || this.horario.value == "" || this.precio.value == "" || this.ciudad.value == "" || this.provincia.value == "" || this.calle.value == "" || this.numero.value == "") {
             return false;
@@ -77,42 +78,64 @@ class CargarEstacionamiento {
         }
     }
 
+    // el metodo que se encarga de enviar los datos al servidor
     cargar() {
+        // Recibimos el codigo del proveedor del local storage
         let codigo = localStorage.getItem('codigo');
-
+        let imagen = 'https://atrapatuled.es/modules/amazzingblog/views/img/uploads/posts/8/xl/3-5fa074a4d235c.jpg'
+        // Creamos un objeto FormData para enviar los datos al servidor
         let datos = new FormData();
-        datos.append('nombre', this.nombre.value);
-        datos.append('plazas', this.plazas.value);
-        datos.append('horario', this.horario.value);
-        datos.append('precio', this.precio.value);
-        datos.append('ciudad', this.ciudad.value);
-        datos.append('provincia', this.provincia.value);  
-        datos.append('calle', this.calle.value);
-        datos.append('numero', this.numero.value);
-        datos.append('codigo', codigo);
+        datos.append('nombre', this.nombre);
+        datos.append('cantidad', this.plazas);
+        datos.append('horario', this.horario);
+        datos.append('precio', this.precio);
+        datos.append('ciudad', this.ciudad);
+        datos.append('provincia', this.provincia);
+        datos.append('calle', this.calle);
+        datos.append('numero', this.numero);
+        datos.append('imagen',imagen);
+        datos.append('cod_prov', codigo);
 
+        // Enviamos los datos al servidor
         fetch(url, {
             method: 'POST',
-            body: datos
+            body: datos,
+            mode: 'no-cors', // <---
+            cache: 'default'
         })
-            .then(res => res.json())
+            // Recibimos la respuesta del servidor en formato json
+            .then(res => res.text())
             .then(data => {
-                if (data == true) {
+                console.log(data)
+                   // Si la respuesta es correcta mostramos un mensaje de exito
+                   if (data == true  || data == 1 || data == '1') {
                     Swal.fire({
                         title: 'Felicidades!',
                         text: `Estacionamiento cargado correctamente`,
                         imageWidth: 600,
                         imageHeight: 300,
                         imageAlt: 'Felicidades!',
-                      })  
+                    })
+                    // Si la respuesta es incorrecta mostramos un mensaje de error
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: `No se pudo cargar el estacionamiento`,
+                        imageWidth: 600,
+                        imageHeight: 300,
+                        imageAlt: 'Error!',
+                    })
                 }
             })
     }
 }
 
+
+// al hacer click en el boton de cargar
 login.onsubmit = (e) => {
     e.preventDefault();
 
+    // instancio la clase 
     const cargarestacionamiento = new CargarEstacionamiento(
         nombre,
         plazas,
@@ -124,13 +147,16 @@ login.onsubmit = (e) => {
         numero
     );
 
+    // verifico que los campos no esten vacios con el metodo verificacionCamposVacios()
     const verificacion = cargarestacionamiento.verificacionCamposVacios();
 
+    // si verificacion es false quiere decir que hay campos vacios, por lo que mandamos un mensaje de alerta
     if (!verificacion) {
         document.getElementById("error").innerHTML = "Todos los campos son obligatorios";
         setTimeout(() => {
             document.getElementById("error").innerHTML = "";
         }, 1000);
+        // Si es true, entonces se ejecuta el metodo de cargar
     } else {
         cargarestacionamiento.cargar();
     }

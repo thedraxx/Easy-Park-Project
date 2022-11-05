@@ -8,14 +8,14 @@
     box-sizing: border-box;
 }
 
-.form{
+.form {
     background-color: #5F9DF7;
     position: relative;
 }
 
-.botones{
+.botones {
     display: flex;
-    flex:auto;
+    flex: auto;
     width: 100%;
     justify-content: space-around;
     justify-content: center;
@@ -34,7 +34,7 @@
     height: 50px;
 }
 
-.imagenLogo{
+.imagenLogo {
     width: 50px;
     height: 50px;
 }
@@ -84,6 +84,14 @@
     letter-spacing: 10px;
 }
 
+.subText{
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 18px;
+    color: #5F9DF7;
+    background-color: white;
+}
+
 
 .form {
     width: 100%;
@@ -108,104 +116,48 @@
     padding-top: 200px;
 }
 
-.input-container {
-    width: 90%;
-    height: 50px;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: white;
-    display: block;
-    margin: 15px 0;
-}
-
-.input {
-    display: block;
-    margin: auto;
-    width: 100%;
-    height: 40px;
-    border: 1px solid rgb(76, 76, 76);
-    padding: 10px;
-    background-color: white;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-}
-
-.names {
-    background-color: white;
-    font-size: 20px;
-}
-
-.submit {
+.containerContacto {
     width: 100%;
     height: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    background-color: rgb(255, 255, 255);
-    list-style: none;
-}
-
-
-.button-create {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border: none;
-    width: 30%;
-    height: 70px;
-    border: 1px solid #5F9DF7;
-    border-radius: 10px;
-    background-color: #ffffff;
-    color: #5F9DF7;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 0 auto;
+}
+
+.containerCards {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
     text-align: center;
-
+    justify-content: center;
+    align-items: center;
+    border: none;
+    margin-top: 100px;
 }
 
-.button-submit {
+
+.card{
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     border: none;
-    width: 30%;
-    height: 70px;
-    border: none;
-    border-radius: 10px;
-    background-color: #5F9DF7;
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 0 auto;
 }
 
 
-#error {
-    position: relative;
-    display: flex;
-    margin-top: 30px;
-    background-color: rgb(254, 124, 124);
-    color: white;
-    font-size: 25px;
-    font-weight: bold;
- 
+
+.imgContact{
+    width: 70px;
+    margin-top: 10px;
+    margin-left: 3vw;
+    background-color: white;
 }
 
-#resultado {
-    position: absolute;
-    display: flex;
-    margin-top: 3vh;
-    color: rgb(255, 255, 255);
-    font-size: 35px;
-    font-weight: bold;
-}
 
 
 @media (max-width: 600px) {
@@ -250,54 +202,48 @@
         align-items: center;
     }
 
-    .submit {
+    .containerContacto {
         width: 100%;
         height: 100%;
-        padding: 10px;
-        margin-top: 15px;
-        background-color: rgb(255, 255, 255);
-        list-style: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: none;
     }
-
-
-    .button-create {
+    
+    .containerCards {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        margin-top: 10px;
+    }
+    
+    
+    .card{
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         border: none;
-        width: 100%;
-        height: 70px;
-        border: 1px solid #5F9DF7;
-        border-radius: 10px;
-        background-color: #ffffff;
-        color: #5F9DF7;
-        font-size: 20px;
-        font-weight: bold;
-        cursor: pointer;
-        margin: 0 auto;
+        margin-top: 50px;
+    }
+    
+    
+    
+    .imgContact{
+        width: 70px;
+        margin-left: 3vw;
+        background-color: white;
     }
 
-    .button-submit {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: none;
-        width: 100%;
-        height: 70px;
-        border: none;
-        border-radius: 10px;
-        background-color: #5F9DF7;
-        color: white;
-        font-size: 20px;
-        font-weight: bold;
-        cursor: pointer;
-        margin: 0 auto;
-    }
-
-
-    .imagenDecoration{
-        display: none;
-    }
 
     .imagenLogo{
         display: none;
