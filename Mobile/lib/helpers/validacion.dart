@@ -21,7 +21,6 @@ ValidaUsuario(String data) {
 dynamic ValidaPass(String value) {
   String pattern = r'^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).{7,}$';
   RegExp regex = RegExp(pattern);
-  print(value);
   if (value.isEmpty) {
     return 'ingrese contraseña!';
   } else {

@@ -1,6 +1,6 @@
-import 'package:easy_park/class/userlocation.dart';
+import 'package:easy_park/class/users.dart';
+import 'package:easy_park/class/usersData.dart';
 import 'package:easy_park/colors/color.dart';
-import 'package:easy_park/home.dart';
 import 'package:easy_park/pages/page_login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,12 +15,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => UserLocation()),
+        ChangeNotifierProvider(create: (_) => userData()),
+        ChangeNotifierProvider(create: (_) => User()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Easy Park',
-        color: azul,
+        color: azuloscuro,
         home: Login(),
       ),
     );

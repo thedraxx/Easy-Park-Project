@@ -10,7 +10,9 @@ class Historial extends Conexion{
 /************************* HISTORIAL DE RESERVAS *******************************/
     public function allReservas(string $tUsuario, int $cod_usuario){
 
-        $consulta = $this->conexion_db->query("SELECT * FROM reserva AS res JOIN estado_reserva AS estR USING(token) WHERE res.$tUsuario = $cod_usuario ORDER BY res.fecha DESC");
+        //SELECT res.*,estR.*,p_estac.direccion FROM reserva AS res JOIN prov_estac AS p_estac USING(cod_estac) JOIN estado_reserva AS estR USING(token)
+
+        $consulta = $this->conexion_db->query("SELECT res.*,estR.*,p_estac.direccion FROM reserva AS res JOIN prov_estac AS p_estac USING(cod_estac) JOIN estado_reserva AS estR USING(token) WHERE res.$tUsuario = $cod_usuario ORDER BY res.fecha DESC");
         $ver = mysqli_num_rows($consulta);
         if($ver>0){
             $reservas = $consulta->fetch_all(MYSQLI_ASSOC);

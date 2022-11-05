@@ -1,5 +1,5 @@
 import 'package:easy_park/class/Proveedores.dart';
-import 'package:easy_park/class/userlocation.dart';
+import 'package:easy_park/class/usersData.dart';
 import 'package:easy_park/classApi/httpPeticiones.dart';
 import 'package:easy_park/colors/color.dart';
 import 'package:easy_park/helpers/asyncSnapshotHelper.dart';
@@ -33,7 +33,7 @@ class _InicioState extends State<Inicio> {
 
   @override
   Widget build(BuildContext context) {
-    ProviderLocation = Provider.of<UserLocation>(context);
+    ProviderLocation = Provider.of<userData>(context);
     userLocation = ProviderLocation.UserPosition;
 
     return Scaffold(
@@ -41,7 +41,7 @@ class _InicioState extends State<Inicio> {
           preferredSize: Size.fromHeight(160), child: Navbar()),
       body: RefreshIndicator(
         backgroundColor: claro,
-        color: azulclaro,
+        color: azulClaro,
         onRefresh: _actualizar,
         child: FutureBuilder(
             key: const Key('futureBuilder'),

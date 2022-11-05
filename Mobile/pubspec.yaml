@@ -45,6 +45,7 @@ dependencies:
   flutter_datetime_picker: ^1.5.1
   intl: ^0.17.0
   vector_math: any
+  flutter_launcher_icons:
 
 
   
@@ -79,6 +80,9 @@ flutter:
 
   assets:
     - assets/Parking.jpg
+    - assets/avatar.jpg
+    - assets/images/logo.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -112,3 +116,7 @@ fonts:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_icons:
+  image_path: 'assets/images/logo.png'
+  android: true
+  ios: true

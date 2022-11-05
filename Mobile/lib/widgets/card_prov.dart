@@ -1,5 +1,5 @@
 import 'package:easy_park/colors/color.dart';
-import 'package:easy_park/pages/view.dart';
+import 'package:easy_park/pages/estacionamiento.dart';
 import 'package:flutter/material.dart';
 
 class Card_Prov extends StatefulWidget {
@@ -47,7 +47,7 @@ class _Card_ProvState extends State<Card_Prov> {
                   latitud: widget.latitud,
                   longitud: widget.longitud,
                   horario: widget.horario,
-                  cantidad: widget.cantidad,
+                  // cantidad: widget.cantidad,
                   imagen: widget.imagen,
                   precio: widget.precio,
                   cant_actual: widget.cant_actual,
@@ -98,19 +98,23 @@ class _Card_ProvState extends State<Card_Prov> {
                           title: Text(
                             "${widget.nombre}",
                             style: const TextStyle(
-                              fontSize: 15.0,
+                              fontSize: 14.0,
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 78, 76, 76),
                             ),
                           ),
-                          subtitle: Text(
-                            "${widget.direccion}",
-                            style: const TextStyle(
-                              fontSize: 12.0,
-                              fontFamily: 'Montserrat',
-                              //fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 78, 76, 76),
+                          subtitle: Padding(
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: Text(
+                              "${widget.direccion}",
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 12.0,
+                                fontFamily: 'Montserrat',
+                                //fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 78, 76, 76),
+                              ),
                             ),
                           ),
                         ),
@@ -122,7 +126,7 @@ class _Card_ProvState extends State<Card_Prov> {
                               fontSize: 12.0,
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.bold,
-                              color: azulclaro,
+                              color: azuloscuro,
                             ),
                           ),
                         ),
@@ -131,22 +135,30 @@ class _Card_ProvState extends State<Card_Prov> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                "\$${widget.precio}",
-                                style: TextStyle(
-                                  fontSize: 13.0,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  color: azulclaro,
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: 5.0, top: 5.0),
+                                child: Text(
+                                  "\$${widget.precio}",
+                                  style: TextStyle(
+                                    fontSize: 13.0,
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.bold,
+                                    color: azuloscuro,
+                                  ),
                                 ),
                               ),
-                              Text(
-                                " x hora",
-                                style: TextStyle(
-                                  fontSize: 13.0,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w300,
-                                  color: azulclaro,
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: 5.0, top: 5.0),
+                                child: Text(
+                                  " x hora",
+                                  style: TextStyle(
+                                    fontSize: 13.0,
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.w300,
+                                    color: azuloscuro,
+                                  ),
                                 ),
                               ),
                             ],

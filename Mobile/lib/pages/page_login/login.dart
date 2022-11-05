@@ -1,3 +1,4 @@
+import 'package:easy_park/class/users.dart';
 import 'package:easy_park/classApi/httpPeticiones.dart';
 import 'package:easy_park/colors/color.dart';
 import 'package:easy_park/helpers/validacion.dart';
@@ -8,7 +9,7 @@ import 'package:easy_park/pages/page_login/reset_pass.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../class/userlocation.dart';
+import '../../class/usersData.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  late var ProviderUserLocation;
   late var ProviderUser;
   final _formkey = GlobalKey<FormState>();
   late String _usuario;
@@ -29,7 +31,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    ProviderUser = Provider.of<UserLocation>(context);
+    ProviderUserLocation = Provider.of<userData>(context);
+    ProviderUser = Provider.of<User>(context);
 
     return Scaffold(
       body: Center(
@@ -38,17 +41,29 @@ class _LoginState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Easy Park",
-                  style: TextStyle(
-                    color: azul,
-                    fontSize: 25.0,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                  )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.center, // use aligment
+                    child: Image.asset('assets/images/logo.png',
+                        height: 40, width: 40, fit: BoxFit.cover),
+                  ),
+                  const SizedBox(width: 10.0),
+                  Text("Easy Park",
+                      style: TextStyle(
+                        color: azulmedio,
+                        fontSize: 25.0,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                      )),
+                ],
+              ),
               const SizedBox(height: 20.0),
               Container(
                   width: 300,
                   decoration: BoxDecoration(
+                    border: Border.all(color: azulmedio),
                     color: claro,
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -56,20 +71,20 @@ class _LoginState extends State<Login> {
                     controller: UsuarioController,
                     validator: (value) => ValidaUsuario(value!),
                     keyboardType: TextInputType.emailAddress,
-                    cursorColor: claro,
+                    cursorColor: azulmedio,
                     decoration: InputDecoration(
-                        fillColor: Colors.white,
+                        fillColor: azulmedio,
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         contentPadding: const EdgeInsets.only(
                             left: 15, bottom: 11, top: 14, right: 15),
                         hintText: 'Email',
                         hintStyle: TextStyle(
-                          color: azulclaro,
+                          color: azuloscuro,
                           fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w100,
+                          fontWeight: FontWeight.w300,
                         ),
-                        labelStyle: TextStyle(color: azul),
+                        labelStyle: TextStyle(color: azuloscuro),
                         suffixIcon: IconButton(
                             splashRadius: 20,
                             onPressed: () {},
@@ -80,28 +95,28 @@ class _LoginState extends State<Login> {
               Container(
                   width: 300,
                   decoration: BoxDecoration(
-                    color: claro,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
+                      // color: claro,
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: azulmedio)),
                   child: TextFormField(
                     controller: PassController,
                     validator: (value) => ValidaPass(value!),
                     onSaved: (newValue) => _pass = newValue!,
                     obscureText: _hide,
-                    cursorColor: claro,
+                    cursorColor: azulmedio,
                     decoration: InputDecoration(
-                        fillColor: Colors.white,
+                        fillColor: claro,
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         contentPadding: const EdgeInsets.only(
                             left: 15, bottom: 11, top: 14, right: 15),
                         hintText: 'Contraseña',
                         hintStyle: TextStyle(
-                          color: azulclaro,
+                          color: azuloscuro,
                           fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w100,
+                          fontWeight: FontWeight.w300,
                         ),
-                        labelStyle: TextStyle(color: azul),
+                        labelStyle: TextStyle(color: azuloscuro),
                         suffixIcon: IconButton(
                             splashRadius: 20,
                             onPressed: () =>
@@ -130,7 +145,7 @@ class _LoginState extends State<Login> {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => Registro()));
                 },
-                child: Text('Registrarse', style: TextStyle(color: azul)),
+                child: Text('Registrarse', style: TextStyle(color: azuloscuro)),
               ),
               const SizedBox(
                 height: 5.0,
@@ -149,8 +164,10 @@ class _LoginState extends State<Login> {
                               PassController.text, _User)
                           .then((result) {
                         if (result == true) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const Home()));
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => const Home()),
+                              (route) => false);
                         } else {
                           // UsuarioController.clear();
                           // PassController.clear();
@@ -159,7 +176,7 @@ class _LoginState extends State<Login> {
                             elevation: 10.0,
                             content: Text(
                               'Usuario incorrecta',
-                              style: TextStyle(color: azul),
+                              style: TextStyle(color: azuloscuro),
                             ),
                             duration: const Duration(seconds: 1),
                           ));
@@ -167,7 +184,7 @@ class _LoginState extends State<Login> {
                       });
                     }
                   },
-                  color: azul,
+                  color: azuloscuro,
                   child: Text('Login', style: TextStyle(color: claro)),
                 ),
               ),
@@ -178,10 +195,9 @@ class _LoginState extends State<Login> {
     );
   }
 
-//GUARDA ID DE USUARIO EN PROVIDER
-  void _User(id) {
-    ProviderUser.idUsuario = int.parse(id);
-    print(ProviderUser.Userid);
+//GUARDA OBJ DE USUARIO EN PROVIDER
+  void _User(data) {
+    ProviderUser.objUsers = data;
   }
 
   void _update() => setState(() {});

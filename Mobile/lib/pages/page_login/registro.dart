@@ -35,7 +35,7 @@ class _RegistroState extends State<Registro> {
         elevation: 0.0,
         leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: Icon(Icons.arrow_back_rounded, color: azul)),
+            icon: Icon(Icons.arrow_back_rounded, color: azuloscuro)),
       ),
       body: Center(
         child: ListView(
@@ -47,7 +47,7 @@ class _RegistroState extends State<Registro> {
                 children: [
                   Text("Registro",
                       style: TextStyle(
-                        color: azul,
+                        color: azuloscuro,
                         fontSize: 18.0,
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w300,
@@ -66,11 +66,12 @@ class _RegistroState extends State<Registro> {
                           decoration: BoxDecoration(
                             color: claro,
                             borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: azulmedio),
                           ),
                           child: TextFormField(
                             controller: nombreController,
                             validator: (value) => ValidaNombre(value!),
-                            cursorColor: claro,
+                            cursorColor: azulmedio,
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 border: InputBorder.none,
@@ -79,11 +80,11 @@ class _RegistroState extends State<Registro> {
                                     left: 15, bottom: 11, top: 14, right: 15),
                                 hintText: 'Nombre',
                                 hintStyle: TextStyle(
-                                  color: azulclaro,
+                                  color: azuloscuro,
                                   fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w100,
+                                  fontWeight: FontWeight.w300,
                                 ),
-                                labelStyle: TextStyle(color: azul),
+                                labelStyle: TextStyle(color: azuloscuro),
                                 suffixIcon: IconButton(
                                     splashRadius: 20,
                                     onPressed: () {},
@@ -96,12 +97,13 @@ class _RegistroState extends State<Registro> {
                           decoration: BoxDecoration(
                             color: claro,
                             borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: azulmedio),
                           ),
                           child: TextFormField(
                             controller: UsuarioController,
                             validator: (value) => ValidaUsuario(value!),
                             keyboardType: TextInputType.emailAddress,
-                            cursorColor: claro,
+                            cursorColor: azulmedio,
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 border: InputBorder.none,
@@ -110,11 +112,11 @@ class _RegistroState extends State<Registro> {
                                     left: 15, bottom: 11, top: 14, right: 15),
                                 hintText: 'Email',
                                 hintStyle: TextStyle(
-                                  color: azulclaro,
+                                  color: azuloscuro,
                                   fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w100,
+                                  fontWeight: FontWeight.w300,
                                 ),
-                                labelStyle: TextStyle(color: azul),
+                                labelStyle: TextStyle(color: azuloscuro),
                                 suffixIcon: IconButton(
                                     splashRadius: 20,
                                     onPressed: () {},
@@ -127,12 +129,13 @@ class _RegistroState extends State<Registro> {
                           decoration: BoxDecoration(
                             color: claro,
                             borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: azulmedio),
                           ),
                           child: TextFormField(
                             controller: telController,
                             validator: (value) => ValidaTel(value!),
                             keyboardType: TextInputType.phone,
-                            cursorColor: claro,
+                            cursorColor: azulmedio,
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 border: InputBorder.none,
@@ -141,11 +144,11 @@ class _RegistroState extends State<Registro> {
                                     left: 15, bottom: 11, top: 14, right: 15),
                                 hintText: 'Telefono',
                                 hintStyle: TextStyle(
-                                  color: azulclaro,
+                                  color: azuloscuro,
                                   fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w100,
+                                  fontWeight: FontWeight.w300,
                                 ),
-                                labelStyle: TextStyle(color: azul),
+                                labelStyle: TextStyle(color: azuloscuro),
                                 suffixIcon: IconButton(
                                     splashRadius: 20,
                                     onPressed: () {},
@@ -158,12 +161,13 @@ class _RegistroState extends State<Registro> {
                           decoration: BoxDecoration(
                             color: claro,
                             borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: azulmedio),
                           ),
                           child: TextFormField(
                             controller: LocalidadController,
                             validator: (value) => ValidaNombre(value!),
                             keyboardType: TextInputType.emailAddress,
-                            cursorColor: claro,
+                            cursorColor: azulmedio,
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 border: InputBorder.none,
@@ -172,11 +176,11 @@ class _RegistroState extends State<Registro> {
                                     left: 15, bottom: 11, top: 14, right: 15),
                                 hintText: 'Localidad',
                                 hintStyle: TextStyle(
-                                  color: azulclaro,
+                                  color: azuloscuro,
                                   fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w100,
+                                  fontWeight: FontWeight.w300,
                                 ),
-                                labelStyle: TextStyle(color: azul),
+                                labelStyle: TextStyle(color: azuloscuro),
                                 suffixIcon: IconButton(
                                     splashRadius: 20,
                                     onPressed: () {},
@@ -189,13 +193,14 @@ class _RegistroState extends State<Registro> {
                           decoration: BoxDecoration(
                             color: claro,
                             borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: azulmedio),
                           ),
                           child: TextFormField(
                             controller: myController,
                             validator: (value) => ValidaPass(value!),
                             onSaved: (newValue) => _pass = newValue!,
                             obscureText: _hide,
-                            cursorColor: claro,
+                            cursorColor: azulmedio,
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 border: InputBorder.none,
@@ -204,11 +209,11 @@ class _RegistroState extends State<Registro> {
                                     left: 15, bottom: 11, top: 14, right: 15),
                                 hintText: 'Ingresar contraseña',
                                 hintStyle: TextStyle(
-                                  color: azulclaro,
+                                  color: azuloscuro,
                                   fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w100,
+                                  fontWeight: FontWeight.w300,
                                 ),
-                                labelStyle: TextStyle(color: azul),
+                                labelStyle: TextStyle(color: azuloscuro),
                                 suffixIcon: IconButton(
                                     splashRadius: 20,
                                     onPressed: () =>
@@ -224,12 +229,13 @@ class _RegistroState extends State<Registro> {
                           decoration: BoxDecoration(
                             color: claro,
                             borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: azulmedio),
                           ),
                           child: TextFormField(
                             validator: (value) =>
                                 ValidaIgualPass(value, myController.text),
                             obscureText: _hide,
-                            cursorColor: claro,
+                            cursorColor: azulmedio,
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 border: InputBorder.none,
@@ -238,11 +244,11 @@ class _RegistroState extends State<Registro> {
                                     left: 15, bottom: 11, top: 14, right: 15),
                                 hintText: 'Repetir contraseña',
                                 hintStyle: TextStyle(
-                                  color: azulclaro,
+                                  color: azuloscuro,
                                   fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w100,
+                                  fontWeight: FontWeight.w300,
                                 ),
-                                labelStyle: TextStyle(color: azul),
+                                labelStyle: TextStyle(color: azuloscuro),
                                 suffixIcon: IconButton(
                                     splashRadius: 20,
                                     onPressed: () =>
@@ -295,14 +301,14 @@ class _RegistroState extends State<Registro> {
                               elevation: 10.0,
                               content: Text(
                                 mensaje,
-                                style: TextStyle(color: azul),
+                                style: TextStyle(color: azuloscuro),
                               ),
                               duration: const Duration(seconds: 1),
                             ));
                           });
                         }
                       },
-                      color: azul,
+                      color: azuloscuro,
                       child:
                           Text('Registrarse', style: TextStyle(color: claro)),
                     ),

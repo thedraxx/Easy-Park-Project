@@ -1,5 +1,4 @@
 import 'package:easy_park/colors/color.dart';
-import 'package:easy_park/helpers/distancias.dart';
 import 'package:easy_park/helpers/validacion.dart';
 import 'package:easy_park/pages/page_login/login.dart';
 
@@ -24,7 +23,7 @@ class _LoginState extends State<ResetPass> {
         elevation: 0.0,
         leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: Icon(Icons.arrow_back_rounded, color: azul)),
+            icon: Icon(Icons.arrow_back_rounded, color: azuloscuro)),
       ),
       body: Center(
         child: Form(
@@ -35,7 +34,7 @@ class _LoginState extends State<ResetPass> {
               const SizedBox(height: 30.0),
               Text("Restablecer contraseña",
                   style: TextStyle(
-                    color: azul,
+                    color: azuloscuro,
                     fontSize: 18.0,
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.w300,
@@ -46,11 +45,12 @@ class _LoginState extends State<ResetPass> {
                   decoration: BoxDecoration(
                     color: claro,
                     borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: azulmedio),
                   ),
                   child: TextFormField(
                     validator: (value) => ValidaUsuario(value!),
                     keyboardType: TextInputType.emailAddress,
-                    cursorColor: claro,
+                    cursorColor: azulmedio,
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         border: InputBorder.none,
@@ -59,11 +59,11 @@ class _LoginState extends State<ResetPass> {
                             left: 15, bottom: 11, top: 14, right: 15),
                         hintText: 'Email',
                         hintStyle: TextStyle(
-                          color: azulclaro,
+                          color: azuloscuro,
                           fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w100,
+                          fontWeight: FontWeight.w300,
                         ),
-                        labelStyle: TextStyle(color: azul),
+                        labelStyle: TextStyle(color: azuloscuro),
                         suffixIcon: IconButton(
                             splashRadius: 20,
                             onPressed: () {},
@@ -86,7 +86,7 @@ class _LoginState extends State<ResetPass> {
                           MaterialPageRoute(builder: (context) => Login()));
                     }
                   },
-                  color: azul,
+                  color: azuloscuro,
                   child: Text('Restablecer contaseña',
                       style: TextStyle(color: claro)),
                 ),

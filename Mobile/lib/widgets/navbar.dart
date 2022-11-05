@@ -1,6 +1,4 @@
 import 'package:easy_park/colors/color.dart';
-import 'package:easy_park/pages/page_login/login.dart';
-//import 'package:easy_park/widgets/botones_categ.dart';
 import 'package:flutter/material.dart';
 
 class Navbar extends StatelessWidget {
@@ -12,7 +10,7 @@ class Navbar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          color: azul,
+          color: azuloscuro,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -25,25 +23,22 @@ class Navbar extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            color: claro,
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                        ),
+                            width: 40.0,
+                            height: 40.0,
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: AssetImage('assets/avatar.jpg')))),
                         const SizedBox(
-                          width: 5,
+                          width: 10,
                         ),
                         Text("Easy Park",
                             style: TextStyle(color: claro, fontSize: 15)),
                       ],
                     ),
                     IconButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => Login()));
-                        },
+                        onPressed: () {},
                         icon: Icon(
                           Icons.menu,
                           color: claro,
@@ -61,11 +56,11 @@ class Navbar extends StatelessWidget {
                       child: Container(
                         margin: const EdgeInsets.only(left: 20, bottom: 10),
                         decoration: BoxDecoration(
-                          color: azulclaro,
+                          color: claro,
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: TextField(
-                          cursorColor: claro,
+                          cursorColor: azuloscuro,
                           decoration: InputDecoration(
                               fillColor: Colors.white,
                               border: InputBorder.none,
@@ -74,11 +69,11 @@ class Navbar extends StatelessWidget {
                                   left: 15, bottom: 11, top: 14, right: 15),
                               hintText: 'Buscar',
                               hintStyle: TextStyle(
-                                color: claro,
+                                color: azuloscuro,
                                 fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w100,
+                                fontWeight: FontWeight.w200,
                               ),
-                              labelStyle: TextStyle(color: claro),
+                              labelStyle: TextStyle(color: azulClaro),
                               suffixIcon: IconButton(
                                   splashRadius: 20,
                                   onPressed: () {},

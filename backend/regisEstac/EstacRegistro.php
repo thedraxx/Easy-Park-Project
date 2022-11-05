@@ -7,7 +7,7 @@ class RegistroEstac extends Conexion{
 
 
     public function RegistroEstac(){
-        parent::__construct();
+        parent::Conexion();
     }
 //********** FUNCION - INGRESO DE ESTACIONAMIENTOS  DEVUELVE (TRUE O FALSE) *********/
     public function IngresarProv($cod_prov,$direccion,$lat,$lng,$horario,$nombre,$cantidad,$imagen,$precio){
